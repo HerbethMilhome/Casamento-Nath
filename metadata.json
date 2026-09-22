@@ -1,0 +1,6 @@
+{
+  "name": "Site de Casamento",
+  "description": "Aplicação web completa e responsiva para site de casamento com área pública para convidados e painel administrativo para os noivos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
