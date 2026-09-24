@@ -40,14 +40,14 @@ export const GuestbookSection: React.FC = () => {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#8C7355] font-semibold block mb-2">
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#657153] font-semibold block mb-2">
             Carinho em Palavras
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl text-[#2A2623] font-normal mb-4">
+          <h2 className="font-serif text-3xl sm:text-5xl text-[#2C3225] font-normal mb-4">
             Livro de Recados
           </h2>
-          <div className="w-16 h-[1.5px] bg-[#8C7355]/40 mx-auto mb-6" />
-          <p className="text-sm sm:text-base text-[#554D47] leading-relaxed font-light">
+          <div className="w-16 h-[1.5px] bg-[#657153]/40 mx-auto mb-6" />
+          <p className="text-sm sm:text-base text-[#55594A] leading-relaxed font-light">
             Deixe seus votos, histórias e energias positivas para os noivos. Cada mensagem será guardada no nosso coração para sempre.
           </p>
         </div>
@@ -56,14 +56,14 @@ export const GuestbookSection: React.FC = () => {
           
           {/* Left / Write a Message Form */}
           <div className="lg:col-span-5 glass rounded-3xl p-6 sm:p-8 shadow-sm border border-white/60">
-            <div className="flex items-center gap-2 text-[#8C7355] text-xs uppercase tracking-widest font-semibold mb-3">
+            <div className="flex items-center gap-2 text-[#657153] text-xs uppercase tracking-widest font-semibold mb-3">
               <MessageSquareHeart size={16} />
               <span>Escrever Mensagem</span>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs uppercase tracking-wider font-medium text-[#4A443F] mb-1">
+                <label className="block text-xs uppercase tracking-wider font-medium text-[#55594A] mb-1">
                   Seu Nome ou Família
                 </label>
                 <input
@@ -72,12 +72,12 @@ export const GuestbookSection: React.FC = () => {
                   value={author}
                   onChange={(e) => setAuthor(e.target.value)}
                   placeholder="Ex: Tio Paulo e Cecília"
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#8C7355]/30 bg-white/80 text-sm focus:outline-none focus:ring-2 focus:ring-[#8C7355]/40"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[#657153]/30 bg-white/80 text-sm focus:outline-none focus:ring-2 focus:ring-[#657153]/40"
                 />
               </div>
 
               <div>
-                <label className="block text-xs uppercase tracking-wider font-medium text-[#4A443F] mb-1">
+                <label className="block text-xs uppercase tracking-wider font-medium text-[#55594A] mb-1">
                   Sua Mensagem
                 </label>
                 <textarea
@@ -86,13 +86,13 @@ export const GuestbookSection: React.FC = () => {
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Escreva seus votos para os noivos..."
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#8C7355]/30 bg-white/80 text-sm focus:outline-none focus:ring-2 focus:ring-[#8C7355]/40"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[#657153]/30 bg-white/80 text-sm focus:outline-none focus:ring-2 focus:ring-[#657153]/40"
                 />
               </div>
 
               {sentSuccess && (
-                <div className="p-3 rounded-xl bg-[#8C7355]/15 border border-[#8C7355]/30 text-xs text-[#2A2623] flex items-start gap-2 leading-relaxed">
-                  <Sparkles size={14} className="text-[#8C7355] shrink-0 mt-0.5" />
+                <div className="p-3 rounded-xl bg-[#657153]/15 border border-[#657153]/30 text-xs text-[#2C3225] flex items-start gap-2 leading-relaxed">
+                  <Sparkles size={14} className="text-[#657153] shrink-0 mt-0.5" />
                   <span>
                     Recado enviado com amor! Ele aparecerá no mural assim que os
                     noivos derem uma olhadinha. Muito obrigado!
@@ -110,7 +110,7 @@ export const GuestbookSection: React.FC = () => {
               <button
                 type="submit"
                 disabled={enviando}
-                className="w-full bg-[#8C7355] hover:bg-[#745F46] disabled:bg-[#8C7355]/60 disabled:cursor-wait text-white text-xs tracking-wider uppercase font-semibold py-3.5 rounded-full transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+                className="w-full bg-[#657153] hover:bg-[#4E5941] disabled:bg-[#657153]/60 disabled:cursor-wait text-white text-xs tracking-wider uppercase font-semibold py-3.5 rounded-full transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
               >
                 {enviando ? (
                   <>
@@ -130,8 +130,8 @@ export const GuestbookSection: React.FC = () => {
           {/* Right / Message Wall Cards */}
           <div className="lg:col-span-7 space-y-4 max-h-[560px] overflow-y-auto pr-1">
             {approvedMessages.length === 0 ? (
-              <div className="glass rounded-3xl p-8 text-center text-[#554D47]">
-                <Heart size={24} className="text-[#8C7355] mx-auto mb-2 opacity-50" />
+              <div className="glass rounded-3xl p-8 text-center text-[#55594A]">
+                <Heart size={24} className="text-[#657153] mx-auto mb-2 opacity-50" />
                 <p className="text-sm">Seja o primeiro a deixar um lindo recado para os noivos!</p>
               </div>
             ) : (
@@ -141,14 +141,14 @@ export const GuestbookSection: React.FC = () => {
                   className="glass rounded-2xl p-5 border border-white/60 hover:bg-white/60 transition-colors"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-serif text-base sm:text-lg text-[#2A2623] font-medium">
+                    <span className="font-serif text-base sm:text-lg text-[#2C3225] font-medium">
                       {msg.name}
                     </span>
-                    <span className="text-[10px] uppercase tracking-wider text-[#8C7355] opacity-70">
+                    <span className="text-[10px] uppercase tracking-wider text-[#657153] opacity-70">
                       {msg.date}
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-[#554D47] leading-relaxed font-light italic">
+                  <p className="text-xs sm:text-sm text-[#55594A] leading-relaxed font-light italic">
                     "{msg.message}"
                   </p>
                 </div>

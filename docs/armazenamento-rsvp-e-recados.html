@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Armazenamento de RSVP e recados — o que foi feito</title>
+<style>
+  :root{
+    --primary:#608334; --accent:#A8CA7E; --bg:#F7FEEF; --text:#38452D;
+    --heading:#202D17; --line:#D9E7C4; --card:#FFFFFF; --code-bg:#1E2A16;
+    --warn-bg:#FFF6E0; --warn-line:#E3C46A;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font:16px/1.65 "Segoe UI",system-ui,-apple-system,sans-serif}
+  .wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px}
+  h1{font-size:2rem;line-height:1.2;color:var(--heading);margin:0 0 8px}
+  h2{font-size:1.35rem;color:var(--heading);margin:56px 0 12px;
+    padding-bottom:8px;border-bottom:2px solid var(--line)}
+  h3{font-size:1.05rem;color:var(--primary);margin:28px 0 8px}
+  p,li{margin:0 0 12px}
+  ul,ol{padding-left:22px}
+  a{color:var(--primary)}
+  code{background:#EAF3DC;padding:1px 5px;border-radius:4px;
+    font:0.87em/1.4 "Cascadia Mono",Consolas,monospace;color:#3D5722}
+  pre{background:var(--code-bg);color:#E8F2DA;padding:16px;border-radius:8px;
+    overflow-x:auto;font:0.83rem/1.55 "Cascadia Mono",Consolas,monospace}
+  pre code{background:none;color:inherit;padding:0;font-size:1em}
+  .sub{color:#6B7A5C;margin:0 0 28px;font-size:0.95rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:18px 20px;margin:0 0 16px}
+  .warn{background:var(--warn-bg);border:1px solid var(--warn-line);
+    border-radius:8px;padding:14px 18px;margin:0 0 16px}
+  table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:0.92rem}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);
+    vertical-align:top}
+  th{background:#EAF3DC;color:var(--heading)}
+  .tag{display:inline-block;font-size:0.72rem;letter-spacing:.06em;
+    text-transform:uppercase;padding:2px 8px;border-radius:99px;
+    background:var(--accent);color:#2B3A1C;font-weight:600;white-space:nowrap}
+  .tag.novo{background:#C9E6A0}
+  .tag.alt{background:#EADFA8}
+  .flow{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:18px;overflow-x:auto;margin:0 0 16px}
+  .flow pre{background:none;color:var(--text);padding:0;font-size:0.8rem}
+  .check{list-style:none;padding-left:0}
+  .check li{padding-left:28px;position:relative}
+  .check li::before{content:"\2610";position:absolute;left:4px;color:var(--primary);
+    font-size:1.1em}
+  footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:0.85rem;color:#6B7A5C}
+  @media print{body{background:#fff}.card,.flow{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Armazenamento de RSVP e recados</h1>
+<p class="sub">Registro do que foi implementado no <code>site-de-casamento</code> — escrito para que o trabalho possa ser refeito do zero sem redescobrir as decisões. Estado dos arquivos em 22/09/2026.</p>
+
+<div class="card">
+  <strong>Resumo em uma frase:</strong> as confirmações de presença e os recados
+  deixaram de viver no <code>localStorage</code> e passaram a ser gravados numa
+  planilha do Google, através de um Apps Script publicado como Web App — com uma
+  etapa de confirmação que impede o site de dizer “confirmado!” para um convidado
+  cujo envio nunca chegou.
+</div>
+
+<h2>1. Escopo — o que estava e o que não estava em jogo</h2>
+
+<p>O site veio pronto de terceiros. A tarefa era <strong>apenas resolver o armazenamento das confirmações de presença (RSVP) e dos recados</strong>, porque um convidado confirma no celular dele e os noivos precisam ver isso em outro aparelho. <code>localStorage</code> não atravessa dispositivos.</p>
+
+<p>Ficou <strong>deliberadamente fora</strong> do escopo, e continua em <code>localStorage</code> de propósito:</p>
+<ul>
+  <li>Lista de presentes, galeria de fotos, linha do tempo, padrinhos, informações úteis, FAQ.</li>
+  <li>Todo o painel administrativo (<code>src/components/admin/</code>), incluindo os 10 erros de tipo pré-existentes que ele carrega.</li>
+  <li>A autenticação, que é cosmética por design (senha fixa no código, <code>'123456'</code> como bypass do portão de convidados). É uma demonstração, não controle de acesso.</li>
+</ul>
+
+<h3>Alternativas consideradas e por que foram descartadas</h3>
+<table>
+  <tr><th>Opção</th><th>Por que não</th></tr>
+  <tr><td>Supabase / Firebase</td><td>Exigem conta, projeto, chaves e manutenção de um backend para gravar duas tabelas. Custo e cerimônia desproporcionais ao problema.</td></tr>
+  <tr><td>Backend próprio (Express)</td><td>Precisaria de hospedagem permanente. O <code>express</code>, <code>dotenv</code> e <code>@google/genai</code> no <code>package.json</code> são resquícios desse plano e continuam sem uso — mantidos por escolha.</td></tr>
+  <tr><td>Google Forms</td><td>Tira o convidado do site e não devolve os recados para o mural.</td></tr>
+  <tr><td><strong>Google Sheets + Apps Script</strong></td><td><strong>Escolhido.</strong> Gratuito, sem servidor, e a planilha já é a interface natural para os noivos: eles leem, filtram e moderam ali mesmo.</td></tr>
+</table>
+
+<h2>2. O problema técnico central</h2>
+
+<p>Esta é a parte que mais custa a redescobrir, e a razão de o código parecer estranho. <strong>O Apps Script é hostil a chamadas vindas de um navegador.</strong></p>
+
+<ol>
+  <li>A URL <code>/exec</code> não responde direto: devolve um <strong>redirecionamento</strong> para <code>script.googleusercontent.com</code>, e essa etapa intermediária <strong>não carrega cabeçalhos de CORS</strong>. Resultado: um <code>fetch</code> comum é rejeitado pelo navegador <em>mesmo quando a gravação deu certo na planilha</em>.</li>
+  <li>Um POST com <code>Content-Type: application/json</code> dispara uma requisição de <em>preflight</em> (<code>OPTIONS</code>), que o Apps Script não sabe responder.</li>
+</ol>
+
+<p>As duas saídas adotadas — ambas intencionais, <strong>não são gambiarra a ser “limpa”</strong>:</p>
+
+<table>
+  <tr><th>Operação</th><th>Técnica</th><th>Por quê</th></tr>
+  <tr>
+    <td>Escrita<br>(RSVP, recado)</td>
+    <td><code>fetch</code> com <code>mode:'no-cors'</code> e <code>Content-Type: text/plain;charset=utf-8</code></td>
+    <td><code>text/plain</code> torna a requisição “simples”: o navegador manda direto, sem preflight. Em troca, <strong>a resposta vem opaca e ilegível</strong>.</td>
+  </tr>
+  <tr>
+    <td>Leitura<br>(recados, confirmação)</td>
+    <td>JSONP — uma tag <code>&lt;script&gt;</code> injetada no <code>&lt;head&gt;</code></td>
+    <td>Tag de script não está sujeita a CORS. O script devolve <code>nomeDaFuncao({...});</code> e a função existe no escopo global.</td>
+  </tr>
+</table>
+
+<div class="warn">
+<strong>A consequência que virou a peça mais importante do sistema.</strong>
+Como a resposta do POST é ilegível, o site <em>não sabe</em> se a gravação funcionou.
+Por isso cada envio carrega um <strong>token aleatório</strong>; o Apps Script só registra
+esse token no <code>CacheService</code> (10 minutos) <em>depois</em> de gravar a linha; e
+o site então pergunta por JSONP <code>?confirmar=&lt;token&gt;</code> até obter resposta.
+Essa ida e volta é a única coisa entre uma falha silenciosa e um convidado indo embora
+achando que confirmou presença. <strong>Se refizer, não corte isso.</strong>
+</div>
+
+<h2>3. Fluxo completo</h2>
+
+<div class="flow">
+<pre>ENVIO (RSVP ou recado)
+  Convidado envia o formulário
+        |
+        |-- POST no-cors  { tipo, dados..., token: "t8k2..." }  --&gt;  Apps Script
+        |                                                              |
+        |                                                        appendRow na aba
+        |                                                              |
+        |                                                        só então:
+        |                                                        cache.put("envio:token")
+        |
+        |-- espera 700ms  --&gt; GET ?confirmar=token (JSONP) --&gt; { gravado: false }
+        |-- espera 1200ms --&gt; GET ?confirmar=token (JSONP) --&gt; { gravado: true }  OK
+        |
+        `-- só agora a tela de "confirmado" aparece
+            (4 tentativas: 700, 1200, 1800, 2500ms — esgotou, é erro)
+
+MURAL DE RECADOS
+  Página monta   --,
+                   |--&gt; GET (JSONP, com cache-buster) --&gt; recados com "Aprovado"
+  Volta para a  --'                                        substitui o state messages
+  aba do site</pre>
+</div>
+
+<h2>4. Inventário de arquivos</h2>
+
+<table>
+  <tr><th>Arquivo</th><th></th><th>Papel</th></tr>
+  <tr><td><code>apps-script/Codigo.gs</code></td><td><span class="tag novo">novo</span></td><td>O backend. Não roda no site — é colado no editor do Apps Script vinculado à planilha. Versão atual: <code>5-jsonp</code>.</td></tr>
+  <tr><td><code>apps-script/README.md</code></td><td><span class="tag novo">novo</span></td><td>Passo a passo de criação da planilha, publicação do Web App, aprovação de recados e diagnóstico.</td></tr>
+  <tr><td><code>src/services/sheetsApi.ts</code></td><td><span class="tag novo">novo</span></td><td>Único ponto de contato do site com a planilha. Exporta <code>enviarRsvp</code>, <code>enviarRecado</code>, <code>buscarRecadosAprovados</code> e <code>sheetsConfigurado</code>.</td></tr>
+  <tr><td><code>src/context/WeddingContext.tsx</code></td><td><span class="tag alt">alterado</span></td><td>Três pontos: <code>submitRsvp</code> e <code>addGuestbookMessage</code> viraram <strong>async</strong>, e um <code>useEffect</code> novo popula o mural a partir da planilha.</td></tr>
+  <tr><td><code>src/components/public/RsvpSection.tsx</code></td><td><span class="tag alt">alterado</span></td><td>Estados <code>enviando</code> e <code>erro</code>; a tela de agradecimento só aparece se <code>result.success</code>.</td></tr>
+  <tr><td><code>src/components/public/GuestbookSection.tsx</code></td><td><span class="tag alt">alterado</span></td><td>Mesmo tratamento: envio assíncrono, estado de erro visível.</td></tr>
+  <tr><td><code>.env.example</code> e <code>.env.local</code></td><td><span class="tag alt">alterado</span></td><td><code>VITE_SHEETS_ENDPOINT</code> documentado e preenchido. <code>.env*</code> já era ignorado pelo Git.</td></tr>
+  <tr><td><code>package.json</code></td><td><span class="tag alt">alterado</span></td><td><code>@types/react</code> e <code>@types/react-dom</code> (<code>^19.3.0</code>) — ver seção 8.</td></tr>
+</table>
+
+<h2>5. <code>apps-script/Codigo.gs</code> — o backend</h2>
+
+<h3>Rotas (todas na mesma URL do Web App)</h3>
+<table>
+  <tr><th>Requisição</th><th>Efeito</th></tr>
+  <tr><td><code>POST { tipo:'rsvp', … }</code></td><td>Acrescenta uma linha na aba <strong>Confirmados</strong>.</td></tr>
+  <tr><td><code>POST { tipo:'recado', … }</code></td><td>Acrescenta uma linha na aba <strong>Recados</strong>, com <code>Aprovado</code> falso.</td></tr>
+  <tr><td><code>GET ?confirmar=&lt;token&gt;</code></td><td><code>{ ok, versao, gravado: true|false }</code></td></tr>
+  <tr><td><code>GET</code> sem parâmetros</td><td><code>{ ok, versao, recados: [...] }</code> — só os aprovados, mais recentes primeiro.</td></tr>
+</table>
+<p>Todo <code>GET</code> aceita <code>&amp;callback=&lt;fn&gt;</code> e responde em JSONP.</p>
+
+<h3>Abas e colunas (criadas sozinhas no primeiro envio)</h3>
+<p><strong>Confirmados:</strong> Data/Hora · Nome · E-mail · Telefone · Vai comparecer · Total de pessoas · Acompanhantes · Restrição alimentar · Detalhe da restrição · Mensagem aos noivos · <strong>Situação</strong></p>
+<p><strong>Recados:</strong> Data/Hora · Nome · Recado · <strong>Aprovado</strong> (caixa de seleção, criada por <code>setDataValidation</code> a cada linha nova)</p>
+
+<h3>Decisões embutidas no script</h3>
+
+<p><strong>Nada é sobrescrito — histórico por e-mail.</strong> Cada envio é uma linha nova marcada <code>Atual</code>; as respostas anteriores <em>do mesmo e-mail</em> passam a <code>Substituída</code>. Para contar convidados, filtra-se a coluna Situação por <code>Atual</code>. Quem responde sem e-mail fica sempre como <code>Atual</code> — agrupar por nome arriscaria juntar dois homônimos.</p>
+
+<p><strong>O token só é registrado depois da gravação.</strong> É o que dá sentido à confirmação:</p>
+<pre><code>if (resultado.ok) registrarToken(corpo.token);
+
+function registrarToken(token) {
+  if (!token) return;
+  CacheService.getScriptCache().put('envio:' + token, '1', 600);
+}</code></pre>
+
+<p><strong>O nome do callback JSONP é validado.</strong> Ele vem da URL e entra no corpo da resposta — sem essa checagem, qualquer um injetaria código na página que consome o endpoint:</p>
+<pre><code>if (!/^[A-Za-z_$][A-Za-z0-9_$]{0,63}$/.test(callback)) {
+  return json({ok: false, erro: 'Nome de callback inválido.'});
+}</code></pre>
+
+<p><strong>Trava de escrita.</strong> <code>LockService.getScriptLock().waitLock(20000)</code> em volta de cada <code>appendRow</code>, para dois convidados enviando ao mesmo tempo não colidirem.</p>
+
+<p><strong>Migração de cabeçalho sem apagar nada.</strong> <code>obterAba()</code> reescreve o cabeçalho quando a aba existente tem menos colunas que o esperado — foi assim que a coluna <code>Situação</code> entrou numa planilha já em uso.</p>
+
+<p><strong>Marcador de versão.</strong> <code>var VERSAO = '5-jsonp';</code> aparece em toda resposta <code>GET</code>. É o jeito rápido de saber qual código está realmente no ar.</p>
+
+<h2>6. <code>src/services/sheetsApi.ts</code> — o cliente</h2>
+
+<p>A escrita, com os dois truques na mesma função:</p>
+<pre><code>async function enviar(corpo) {
+  const token = gerarToken();
+
+  await fetch(exigirEndpoint(), {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify({...corpo, token}),
+  });
+
+  await confirmarGravacao(token);   // o que torna o envio verificável
+}</code></pre>
+
+<p>A confirmação insiste dentro de um orçamento fixo, porque gravação e consulta são requisições independentes — a segunda pode chegar antes de a primeira terminar:</p>
+<pre><code>const esperas = [700, 1200, 1800, 2500];
+for (const espera of esperas) {
+  await esperar(espera);
+  try {
+    const resposta = await jsonp({confirmar: token});
+    if (resposta.gravado) return;
+  } catch { /* rede instável: segue tentando */ }
+}
+throw new Error('Não foi possível confirmar a gravação na planilha.');</code></pre>
+
+<h3>Dois detalhes que parecem supérfluos e não são</h3>
+
+<div class="card">
+<p><strong>O cache-buster <code>_</code> em toda URL JSONP.</strong> Sem ele o navegador guarda a resposta da tag de script e o mural serve recados velhos por minutos depois de uma aprovação.</p>
+<pre><code>const query = new URLSearchParams({
+  ...parametros, callback: nome, _: Date.now().toString(36),
+});</code></pre>
+</div>
+
+<div class="card">
+<p><strong><code>buscarRecadosAprovados</code> devolve <code>null</code> em caso de falha — <code>[]</code> significa “a planilha respondeu e não há recado aprovado”.</strong> Quem chama não pode apagar o mural em <code>null</code>, ou uma falha de rede esvazia a tela de quem já estava lendo.</p>
+</div>
+
+<p><strong>Modo offline.</strong> <code>sheetsConfigurado()</code> é falso quando <code>VITE_SHEETS_ENDPOINT</code> não está definido (o normal em desenvolvimento local). Aí tudo volta a cair no <code>localStorage</code> e o app roda sem a planilha.</p>
+
+<h2>7. Integração no site</h2>
+
+<h3><code>WeddingContext.tsx</code></h3>
+<p><strong>(a) <code>submitRsvp</code> virou async e devolve <code>{success, message}</code>.</strong> A planilha é a fonte da verdade: se a gravação falha, devolve <code>success:false</code> com mensagem em português e o site nunca mostra a tela de agradecimento.</p>
+
+<p><strong>(b) <code>addGuestbookMessage</code> virou async e deixa o erro subir</strong> — quem chamou precisa saber que o recado não foi salvo.</p>
+
+<p><strong>(c) <code>useEffect</code> novo popula o mural.</strong> Carrega na montagem e de novo em <code>visibilitychange</code>, porque os noivos aprovam na planilha e voltam para a aba do site esperando ver o resultado:</p>
+<pre><code>const carregar = async () =&gt; {
+  const recados = await buscarRecadosAprovados();
+  if (cancelado || recados === null) return;   // null = falha, mantém o mural
+  setMessages(recados.map(r =&gt; ({ id: r.id, name: r.nome,
+    message: r.recado, date: r.data, isApproved: true })));
+};</code></pre>
+
+<h3>Componentes públicos</h3>
+<p>Ambos ganharam <code>enviando</code> (trava o botão contra envio duplo) e <code>erro</code> (mensagem visível em português). O trecho que define tudo, em <code>RsvpSection.tsx</code>:</p>
+<pre><code>// Só mostramos a tela de agradecimento se a planilha confirmou a gravação.
+if (!result.success) { setErro(result.message); return; }
+setResponseFeedback(result.message);
+setSubmitted(true);</code></pre>
+
+<h2>8. O ajuste paralelo: <code>@types/react</code></h2>
+
+<p>Não fazia parte do pedido, mas impedia qualquer verificação confiável. O <code>package.json</code> <strong>nunca declarou <code>@types/react</code> nem <code>@types/react-dom</code></strong>. Sem eles, toda API do React resolvia para <code>any</code> — inclusive o retorno de <code>useWedding()</code> — e o <code>npm run lint</code> (que é <code>tsc --noEmit</code>, não um linter) passava <strong>sem checar praticamente nada</strong>.</p>
+
+<p>Instalados na versão <code>^19.3.0</code>. Isso revelou <strong>10 erros de tipo reais e pré-existentes</strong> em <code>src/components/admin/</code> (<code>hasPlusOne</code> ausente, <code>order</code> passado onde é <code>Omit</code>tido, <code>heroPhotoUrl</code> e <code>coverPhrase</code> fora de <code>WeddingData</code>) — conhecidos, alheios a esta mudança e fora do escopo.</p>
+
+<div class="warn">
+<strong>Sinal de alerta:</strong> se o <code>tsc</code> voltar a passar rápido demais ou aceitar algo claramente errado, a primeira coisa a conferir é se <code>@types/react</code> continua instalado. Um <code>npm install</code> a partir de um <code>package.json</code> antigo remove os dois de novo.
+</div>
+
+<h2>9. Para refazer do zero — passos</h2>
+
+<ol>
+  <li>Criar planilha em <a href="https://sheets.new">sheets.new</a>. Não criar abas nem colunas — o script cria.</li>
+  <li><strong>Extensões → Apps Script</strong>, apagar o conteúdo de <code>Código.gs</code> e colar <code>apps-script/Codigo.gs</code>.</li>
+  <li><strong>Implantar → Nova implantação → App da Web</strong>, com <em>Executar como:</em> <code>Eu</code> e <em>Quem pode acessar:</em> <code>Qualquer pessoa</code>. Autorizar (o aviso de “app não verificado” é esperado — o app é seu).</li>
+  <li>Copiar a URL terminada em <code>/exec</code> para <code>VITE_SHEETS_ENDPOINT</code> no <code>.env.local</code>. <strong>Reiniciar o <code>npm run dev</code></strong> — o Vite só lê variáveis de ambiente na inicialização.</li>
+  <li>Ao publicar (Vercel, Netlify, Cloud Run…), cadastrar a mesma variável no painel de ambiente do serviço.</li>
+  <li>Testar: enviar um RSVP (a aba <strong>Confirmados</strong> deve aparecer) e um recado (aba <strong>Recados</strong>, com <code>Aprovado</code> desmarcado).</li>
+</ol>
+
+<p><em>“Qualquer pessoa” é seguro aqui:</em> o script só sabe acrescentar uma linha e devolver recados <strong>já aprovados</strong>. Ninguém lê a lista de convidados, e-mails ou telefones por ele; a planilha continua privada na conta Google.</p>
+
+<h2>10. Invariantes — quebrar qualquer um destes reintroduz um bug conhecido</h2>
+
+<ul class="check">
+  <li>O POST continua <code>mode:'no-cors'</code> com <code>text/plain</code>. Trocar por <code>application/json</code> dispara preflight e nada é gravado.</li>
+  <li>A leitura continua por JSONP. Trocar por <code>fetch</code> quebra no redirecionamento sem CORS.</li>
+  <li>A confirmação por token permanece. Sem ela, falha de gravação vira convidado achando que confirmou.</li>
+  <li>O token só é registrado <em>depois</em> do <code>appendRow</code>, nunca antes.</li>
+  <li>Toda URL JSONP leva o cache-buster <code>_</code>.</li>
+  <li><code>null</code> de <code>buscarRecadosAprovados</code> nunca esvazia o mural; <code>[]</code> pode.</li>
+  <li>Nenhuma tela de sucesso aparece sem checar <code>result.success</code>.</li>
+  <li>Recado novo entra <strong>não aprovado</strong>. A moderação é a caixinha na planilha, não o painel admin.</li>
+  <li>O nome do callback JSONP continua validado por regex no <code>Codigo.gs</code>.</li>
+  <li>Se mudar a forma de uma entidade persistida, <strong>bumpar o sufixo da chave</strong> em <code>STORAGE_KEYS</code> (<code>casamento_guests_v1</code>…) — senão usuários antigos hidratam JSON velho na forma nova e o app quebra.</li>
+</ul>
+
+<h2>11. Armadilhas ao mexer depois</h2>
+
+<div class="warn">
+<strong>Editar o <code>Codigo.gs</code> não muda nada até republicar.</strong>
+O caminho é <strong>Implantar → Gerenciar implantações → (ícone de lápis) → Versão: Nova versão → Implantar</strong>;
+a URL continua a mesma. <em>“Nova implantação” cria outra URL e deixa silenciosamente
+o código antigo servindo</em> — é o erro clássico. Para conferir o que está no ar, abra
+a URL <code>/exec</code> no navegador: a resposta traz <code>"versao":"5-jsonp"</code>.
+</div>
+
+<table>
+  <tr><th>Sintoma</th><th>Causa provável</th></tr>
+  <tr><td>“Não conseguimos registrar sua confirmação”</td><td>URL errada no <code>.env.local</code>, ou o <code>npm run dev</code> não foi reiniciado</td></tr>
+  <tr><td>Envio funciona, mas nada chega na planilha</td><td>A implantação não foi atualizada depois de editar o script</td></tr>
+  <tr><td>Erro de CORS no console</td><td>A implantação não está como <strong>Qualquer pessoa</strong></td></tr>
+  <tr><td>Recado não aparece no mural</td><td>A caixinha <strong>Aprovado</strong> não foi marcada</td></tr>
+  <tr><td>Página pede login do Google</td><td>“Executar como” está diferente de <code>Eu</code></td></tr>
+  <tr><td>Mural com recados velhos</td><td>Cache-buster removido da URL JSONP</td></tr>
+</table>
+
+<p><strong>Sobre o repositório:</strong> ele <strong>não está sob controle de versão</strong> — não há Git, então edições são irreversíveis; confirme antes de apagar ou reescrever arquivos inteiros. Também não há suíte de testes nem runner instalado: a verificação disponível é <code>npm run lint</code> (<code>tsc --noEmit</code>) somada a rodar o app.</p>
+
+<footer>
+Documento gerado a partir do estado real dos arquivos em 22/09/2026 —
+<code>Codigo.gs</code> na versão <code>5-jsonp</code>.
+Ver também <code>apps-script/README.md</code> (guia de operação para os noivos) e
+<code>CLAUDE.md</code> (convenções do repositório).
+</footer>
+
+</div>
+</body>
+</html>

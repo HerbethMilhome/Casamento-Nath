@@ -174,7 +174,7 @@ export const AdminGuests: React.FC = () => {
 
           <button
             onClick={openAddModal}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#8C7355] hover:bg-[#745F46] text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#657153] hover:bg-[#4E5941] text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
           >
             <Plus size={16} />
             <span>Novo Convidado</span>
@@ -192,7 +192,7 @@ export const AdminGuests: React.FC = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Buscar por nome, telefone ou e-mail..."
-            className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#8C7355]/40"
+            className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#657153]/40"
           />
         </div>
 
@@ -328,7 +328,7 @@ export const AdminGuests: React.FC = () => {
                       <td className="py-3.5 px-4 text-right whitespace-nowrap">
                         <button
                           onClick={() => openEditModal(guest)}
-                          className="p-1.5 text-gray-500 hover:text-[#8C7355] hover:bg-gray-100 rounded-lg transition-colors mr-1 cursor-pointer"
+                          className="p-1.5 text-gray-500 hover:text-[#657153] hover:bg-gray-100 rounded-lg transition-colors mr-1 cursor-pointer"
                           title="Editar"
                         >
                           <Edit3 size={15} />
@@ -381,7 +381,7 @@ export const AdminGuests: React.FC = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Nome do convidado"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                 />
               </div>
 
@@ -396,7 +396,7 @@ export const AdminGuests: React.FC = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="(85) 99999-9999"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                   />
                 </div>
 
@@ -409,7 +409,7 @@ export const AdminGuests: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="email@exemplo.com"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                   />
                 </div>
               </div>
@@ -422,7 +422,7 @@ export const AdminGuests: React.FC = () => {
                   <select
                     value={group}
                     onChange={(e) => setGroup(e.target.value as GuestGroup)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                   >
                     {groups.map(g => (
                       <option key={g} value={g}>{g}</option>
@@ -440,7 +440,7 @@ export const AdminGuests: React.FC = () => {
                     max="10"
                     value={allowedPlusOnes}
                     onChange={(e) => setAllowedPlusOnes(Number(e.target.value))}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                   />
                 </div>
               </div>
@@ -453,7 +453,7 @@ export const AdminGuests: React.FC = () => {
                   <select
                     value={rsvpStatus}
                     onChange={(e) => setRsvpStatus(e.target.value as RsvpStatus)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                   >
                     <option value="not_sent">Não Enviado</option>
                     <option value="sent">Convite Enviado</option>
@@ -471,7 +471,7 @@ export const AdminGuests: React.FC = () => {
                     min="0"
                     value={attendingCount}
                     onChange={(e) => setAttendingCount(Number(e.target.value))}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                   />
                 </div>
               </div>
@@ -513,7 +513,7 @@ export const AdminGuests: React.FC = () => {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Anotações dos noivos..."
-                  className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                  className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                 />
               </div>
 
@@ -527,7 +527,7 @@ export const AdminGuests: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#8C7355] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#745F46]"
+                  className="px-5 py-2 rounded-xl bg-[#657153] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#4E5941]"
                 >
                   Salvar Convidado
                 </button>

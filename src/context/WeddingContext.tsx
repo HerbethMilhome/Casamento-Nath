@@ -110,8 +110,8 @@ interface WeddingContextType {
 }
 
 const STORAGE_KEYS = {
-  WEDDING: 'casamento_data_v3',
-  STORY: 'casamento_story_v1',
+  WEDDING: 'casamento_data_v4',
+  STORY: 'casamento_story_v2',
   GODPARENTS: 'casamento_godparents_v1',
   GUESTS: 'casamento_guests_v1',
   GIFTS: 'casamento_gifts_v1',

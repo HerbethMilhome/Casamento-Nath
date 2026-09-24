@@ -86,7 +86,7 @@ export const AdminDashboard: React.FC = () => {
       {/* Header Greeting */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
         <div>
-          <span className="text-xs uppercase tracking-widest text-[#8C7355] font-semibold">
+          <span className="text-xs uppercase tracking-widest text-[#657153] font-semibold">
             Visão Geral do Evento
           </span>
           <h1 className="font-serif text-3xl text-gray-900 mt-1">
@@ -100,7 +100,7 @@ export const AdminDashboard: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setAdminSection('convidados')}
-            className="bg-[#8C7355] hover:bg-[#745F46] text-white text-xs font-semibold uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-2 cursor-pointer"
+            className="bg-[#657153] hover:bg-[#4E5941] text-white text-xs font-semibold uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-2 cursor-pointer"
           >
             <span>Gerenciar Convidados</span>
             <ArrowUpRight size={14} />
@@ -148,7 +148,7 @@ export const AdminDashboard: React.FC = () => {
             <h3 className="font-serif text-lg text-gray-900">
               Taxa de Resposta do RSVP
             </h3>
-            <span className="text-xs text-[#8C7355] font-semibold">
+            <span className="text-xs text-[#657153] font-semibold">
               {totalPotentialPeople > 0 ? Math.round((confirmedPeopleCount / totalPotentialPeople) * 100) : 0}% Confirmado
             </span>
           </div>
@@ -202,7 +202,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <div className="flex items-center justify-between text-xs text-gray-600 pb-2 border-b border-gray-100">
                 <span>Arrecadação Estimada:</span>
-                <span className="font-semibold text-[#8C7355] text-sm">
+                <span className="font-semibold text-[#657153] text-sm">
                   R$ {totalGiftedValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                 </span>
               </div>
@@ -226,12 +226,12 @@ export const AdminDashboard: React.FC = () => {
         <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Utensils size={18} className="text-[#8C7355]" />
+              <Utensils size={18} className="text-[#657153]" />
               <h3 className="font-serif text-lg text-gray-900">
                 Restrições Alimentares Sinalizadas
               </h3>
             </div>
-            <span className="text-xs bg-[#8C7355]/10 text-[#8C7355] px-2.5 py-0.5 rounded-full font-medium">
+            <span className="text-xs bg-[#657153]/10 text-[#657153] px-2.5 py-0.5 rounded-full font-medium">
               {dietaryRestrictions.length} informadas
             </span>
           </div>
@@ -264,7 +264,7 @@ export const AdminDashboard: React.FC = () => {
         <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <MessageSquare size={18} className="text-[#8C7355]" />
+              <MessageSquare size={18} className="text-[#657153]" />
               <h3 className="font-serif text-lg text-gray-900">
                 Recados dos Convidados
               </h3>

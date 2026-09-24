@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `npm run dev` — Vite dev server on port 3000, bound to `0.0.0.0`.
 - `npm run lint` — **this is `tsc --noEmit`, not a linter.** There is no ESLint/Prettier/Biome config in the repo. Run it after editing `.ts`/`.tsx` — it is the only automated check that exists.
-- `src/components/admin/` currently has **10 pre-existing type errors** (missing `hasPlusOne`, `order` passed where it is `Omit`ted, `heroPhotoUrl`/`coverPhrase` not on `WeddingData`). They are known and unrelated to your change — check that your edit did not *add* to the count rather than expecting zero.
+- `src/components/admin/` currently has **9 pre-existing type errors** (missing `hasPlusOne`, `order` passed where it is `Omit`ted, `heroPhotoUrl`/`coverPhrase` not on `WeddingData`). They are known and unrelated to your change — check that your edit did not *add* to the count rather than expecting zero.
 - There is **no test suite and no test runner installed.** Do not suggest `npm test`. Verify changes by typechecking and by running the app.
 
 ## Architecture
@@ -34,13 +34,19 @@ These two are the exception and the reason `src/services/sheetsApi.ts` exists: a
 - With `VITE_SHEETS_ENDPOINT` unset (normal in local dev) `sheetsConfigurado()` is false and both fall back to localStorage, so the app still runs offline.
 - Editing `Codigo.gs` has no effect until the script is **redeployed as a new version** in the Apps Script UI (edit the existing deployment; "New deployment" mints a different URL and silently leaves the old code serving). `Codigo.gs` carries a `VERSAO` constant echoed by `GET /exec` — that is how you tell which code is actually live.
 
+### Nossa História (linha do tempo)
+
+`StoryMilestone` carries `dateLabel` (the full date as the couple wrote it), `location`, `art` (a `StoryArtMotif`) and `photos`: editable photo slots. A slot with no `url` renders `StoryWatercolor`, a hand-drawn SVG of the destination — never a stock photo and never a face, so a placeholder can't be mistaken for a real picture of the couple. `photoUrl`/`caption` stay on the type only as a fallback for milestones that predate `photos`.
+
+`STORY_CLOSING` and `STORY_SOUNDTRACK` live in `initialWeddingData.ts`. The soundtrack button only renders when `STORY_SOUNDTRACK.url` is filled, and it never autoplays.
+
 `express`, `dotenv`, and `@google/genai` are installed but imported nowhere; they are placeholders for a planned backend. Keep them.
 
 ## Styling
 
 Tailwind v4 via `@tailwindcss/vite`, configured entirely in `src/index.css` (`@import "tailwindcss"`) — there is no `tailwind.config.js`.
 
-- **The sage-green palette is canonical**: `--primary: #608334`, `--accent: #A8CA7E`, `--bg-page: #F7FEEF`, `--text-color: #38452D`, `--text-heading: #202D17`, defined as CSS vars in `index.css`. The brown/taupe family (`#8C7355`, `#745F46`, `#2A2623`, `#554D47`) is legacy and appears in most public components; migrate it toward green when you're already editing a file, but don't do a standalone sweep.
+- **The rustic palette is canonical**: `--primary: #657153` (verde-oliva), `--accent: #A98C5B` (dourado envelhecido), `--accent-soft`/`--nude: #E9DDCC`, `--bg-page: #F9F6EF` (marfim), `--text-color: #3F463A`, `--text-heading: #2C3225`, defined as CSS vars in `index.css`. The whole site was migrated to it in one sweep — the old sage-green family (`#608334`, `#A8CA7E`, `#CBDDB5`, `#F7FEEF`) and the older brown/taupe one (`#8C7355`, `#745F46`) should not reappear. Components still hardcode hex values; keep to the palette above when you add any.
 - `AdminAppearance.tsx` lets the couple pick colors, fonts, `buttonRadius`, and `cardStyle`, but **no public component currently reads `theme` from context** — they all hardcode hex. When you create or substantially edit a public component, wire it to `theme` from `useWedding()` instead of hardcoding.
 - Custom utility classes in `index.css` are the house style: `glass`, `glass-subtle`, `glass-dark`, `mesh-bg`, `font-cormorant`, `font-playfair`, `font-montserrat`, `font-sans-body`, `letter-spacing-wide`, `divider-gold`, `no-scrollbar`. Prefer these over re-implementing backdrop blur or font stacks inline.
 - Fonts load from Google Fonts in `index.html`, not from npm.

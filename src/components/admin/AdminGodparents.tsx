@@ -77,7 +77,7 @@ export const AdminGodparents: React.FC = () => {
 
         <button
           onClick={openAddModal}
-          className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#8C7355] hover:bg-[#745F46] text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
+          className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#657153] hover:bg-[#4E5941] text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
         >
           <Plus size={16} />
           <span>Adicionar Padrinho/Madrinha</span>
@@ -101,7 +101,7 @@ export const AdminGodparents: React.FC = () => {
                   <h4 className="font-serif text-lg text-gray-900 leading-tight">
                     {gp.name}
                   </h4>
-                  <span className="text-[10px] uppercase font-semibold text-[#8C7355]">
+                  <span className="text-[10px] uppercase font-semibold text-[#657153]">
                     {gp.role} • {gp.side === 'noiva' ? 'Noiva' : gp.side === 'noivo' ? 'Noivo' : 'Ambos'}
                   </span>
                 </div>
@@ -121,7 +121,7 @@ export const AdminGodparents: React.FC = () => {
             <div className="pt-3 border-t border-gray-100 mt-3 flex items-center justify-end gap-2">
               <button
                 onClick={() => openEditModal(gp)}
-                className="p-1.5 text-gray-500 hover:text-[#8C7355] rounded-lg"
+                className="p-1.5 text-gray-500 hover:text-[#657153] rounded-lg"
                 title="Editar"
               >
                 <Edit3 size={15} />
@@ -169,7 +169,7 @@ export const AdminGodparents: React.FC = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Nome do padrinho ou madrinha"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                 />
               </div>
 
@@ -254,7 +254,7 @@ export const AdminGodparents: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#8C7355] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#745F46]"
+                  className="px-5 py-2 rounded-xl bg-[#657153] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#4E5941]"
                 >
                   Salvar
                 </button>

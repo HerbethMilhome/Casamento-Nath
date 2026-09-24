@@ -20,25 +20,25 @@ export const GodparentsSection: React.FC = () => {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#8C7355] font-semibold block mb-2">
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#657153] font-semibold block mb-2">
             Pessoas Que Amamos
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl text-[#2A2623] font-normal mb-4">
+          <h2 className="font-serif text-3xl sm:text-5xl text-[#2C3225] font-normal mb-4">
             Padrinhos e Madrinhas
           </h2>
-          <div className="w-16 h-[1.5px] bg-[#8C7355]/40 mx-auto mb-6" />
-          <p className="text-sm sm:text-base text-[#554D47] leading-relaxed font-light">
+          <div className="w-16 h-[1.5px] bg-[#657153]/40 mx-auto mb-6" />
+          <p className="text-sm sm:text-base text-[#55594A] leading-relaxed font-light">
             Eles estiveram ao nosso lado em cada riso, conselho e celebração. Não poderíamos subir ao altar sem a bênção e a energia deles.
           </p>
 
           {/* Filter Pills */}
-          <div className="inline-flex items-center gap-2 glass p-1.5 rounded-full mt-6 border border-[#8C7355]/20">
+          <div className="inline-flex items-center gap-2 glass p-1.5 rounded-full mt-6 border border-[#657153]/20">
             <button
               onClick={() => setFilter('todos')}
               className={`px-4 py-1.5 rounded-full text-xs tracking-wider uppercase transition-all ${
                 filter === 'todos'
-                  ? 'bg-[#8C7355] text-white font-medium shadow-sm'
-                  : 'text-[#554D47] hover:text-[#8C7355]'
+                  ? 'bg-[#657153] text-white font-medium shadow-sm'
+                  : 'text-[#55594A] hover:text-[#657153]'
               }`}
             >
               Todos ({godparents.length})
@@ -47,8 +47,8 @@ export const GodparentsSection: React.FC = () => {
               onClick={() => setFilter('noiva')}
               className={`px-4 py-1.5 rounded-full text-xs tracking-wider uppercase transition-all ${
                 filter === 'noiva'
-                  ? 'bg-[#8C7355] text-white font-medium shadow-sm'
-                  : 'text-[#554D47] hover:text-[#8C7355]'
+                  ? 'bg-[#657153] text-white font-medium shadow-sm'
+                  : 'text-[#55594A] hover:text-[#657153]'
               }`}
             >
               Da Noiva
@@ -57,8 +57,8 @@ export const GodparentsSection: React.FC = () => {
               onClick={() => setFilter('noivo')}
               className={`px-4 py-1.5 rounded-full text-xs tracking-wider uppercase transition-all ${
                 filter === 'noivo'
-                  ? 'bg-[#8C7355] text-white font-medium shadow-sm'
-                  : 'text-[#554D47] hover:text-[#8C7355]'
+                  ? 'bg-[#657153] text-white font-medium shadow-sm'
+                  : 'text-[#55594A] hover:text-[#657153]'
               }`}
             >
               Do Noivo
@@ -83,34 +83,34 @@ export const GodparentsSection: React.FC = () => {
                   />
                   
                   {/* Badge */}
-                  <div className="absolute top-3 right-3 bg-white/70 backdrop-blur-md px-3 py-1 rounded-full text-[10px] tracking-wider uppercase text-[#8C7355] font-semibold border border-white/40">
+                  <div className="absolute top-3 right-3 bg-white/70 backdrop-blur-md px-3 py-1 rounded-full text-[10px] tracking-wider uppercase text-[#657153] font-semibold border border-white/40">
                     {gp.role}
                   </div>
                 </div>
 
                 {/* Name & Relationship */}
                 <div className="text-center mb-4">
-                  <h3 className="font-serif text-xl sm:text-2xl text-[#2A2623] mb-1">
+                  <h3 className="font-serif text-xl sm:text-2xl text-[#2C3225] mb-1">
                     {gp.name}
                   </h3>
-                  <span className="text-[11px] uppercase tracking-wider text-[#8C7355] font-medium block">
+                  <span className="text-[11px] uppercase tracking-wider text-[#657153] font-medium block">
                     {gp.side === 'noiva' ? 'Lado da Noiva' : gp.side === 'noivo' ? 'Lado do Noivo' : 'Amigos de Ambos'}
                   </span>
                 </div>
 
                 {/* Affectionate Bio */}
-                <p className="text-xs sm:text-sm text-[#554D47] leading-relaxed font-light text-center mb-4">
+                <p className="text-xs sm:text-sm text-[#55594A] leading-relaxed font-light text-center mb-4">
                   "{gp.bio}"
                 </p>
               </div>
 
               {/* Curiosity / Fun Quote */}
               {gp.curiosity && (
-                <div className="pt-3 border-t border-[#8C7355]/15 bg-[#8C7355]/5 rounded-xl p-3 text-center">
-                  <span className="block text-[9px] uppercase tracking-widest text-[#8C7355] font-semibold mb-1 flex items-center justify-center gap-1">
+                <div className="pt-3 border-t border-[#657153]/15 bg-[#657153]/5 rounded-xl p-3 text-center">
+                  <span className="block text-[9px] uppercase tracking-widest text-[#657153] font-semibold mb-1 flex items-center justify-center gap-1">
                     <Sparkles size={10} /> Curiosidade
                   </span>
-                  <p className="text-[11px] text-[#4A443F] italic">
+                  <p className="text-[11px] text-[#55594A] italic">
                     {gp.curiosity}
                   </p>
                 </div>

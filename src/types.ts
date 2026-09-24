@@ -9,6 +9,31 @@ export type DietaryRestriction =
   | 'alergia_alimentar' 
   | 'outra';
 
+/** Watercolour motif drawn as a placeholder until a real photo is uploaded. */
+export type StoryArtMotif =
+  | 'encontro'
+  | 'restaurante'
+  | 'estrada'
+  | 'serra'
+  | 'cavalo'
+  | 'praia'
+  | 'rio'
+  | 'estadio'
+  | 'cachoeira'
+  | 'pedra'
+  | 'gestacao'
+  | 'alianca'
+  | 'capela';
+
+/** One editable photo slot inside a milestone. Empty url renders the watercolour. */
+export interface StoryPhoto {
+  id: string;
+  url?: string;
+  caption?: string;
+  /** Motif used while `url` is empty. Falls back to the milestone's motif. */
+  art?: StoryArtMotif;
+}
+
 export interface StoryMilestone {
   id: string;
   year: string;
@@ -17,6 +42,13 @@ export interface StoryMilestone {
   photoUrl?: string;
   caption?: string;
   order: number;
+  /** Full date as the couple wrote it, e.g. "6 de março de 2020". */
+  dateLabel?: string;
+  /** Place of the memory, e.g. "Acarape, Ceará". */
+  location?: string;
+  art?: StoryArtMotif;
+  /** Editable photo slots, one per trip/moment of that year. */
+  photos?: StoryPhoto[];
 }
 
 export interface Godparent {
@@ -121,11 +153,11 @@ export type ThemePreset =
 export interface ThemeConfig {
   presetId: ThemePreset;
   presetName: string;
-  primaryColor: string;      // e.g. #8C7355
-  secondaryColor: string;    // e.g. #745F46
-  accentColor: string;       // e.g. #D4AF37
-  backgroundColor: string;   // e.g. #F9F6F2
-  textColor: string;         // e.g. #4A443F
+  primaryColor: string;      // e.g. #657153
+  secondaryColor: string;    // e.g. #4E5941
+  accentColor: string;       // e.g. #A98C5B
+  backgroundColor: string;   // e.g. #F9F6EF
+  textColor: string;         // e.g. #55594A
   headingFont: 'cormorant' | 'playfair' | 'montserrat' | 'sans';
   bodyFont: 'sans' | 'montserrat' | 'serif';
   buttonRadius: 'pill' | 'rounded-xl' | 'rounded-md' | 'square';

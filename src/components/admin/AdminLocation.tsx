@@ -68,7 +68,7 @@ export const AdminLocation: React.FC = () => {
             id="sameLocation"
             checked={sameLocation}
             onChange={(e) => setSameLocation(e.target.checked)}
-            className="w-4 h-4 rounded text-[#8C7355] focus:ring-[#8C7355]"
+            className="w-4 h-4 rounded text-[#657153] focus:ring-[#657153]"
           />
           <label htmlFor="sameLocation" className="text-xs text-gray-800 font-medium cursor-pointer">
             A cerimônia e a festa de recepção serão realizadas no <strong>mesmo local</strong>.
@@ -78,7 +78,7 @@ export const AdminLocation: React.FC = () => {
         {/* Ceremony details */}
         <div>
           <h4 className="font-serif text-base text-gray-900 mb-3 flex items-center gap-2">
-            <MapPin size={16} className="text-[#8C7355]" />
+            <MapPin size={16} className="text-[#657153]" />
             <span>{sameLocation ? 'Local da Cerimônia & Recepção' : 'Local da Cerimônia Religiosa'}</span>
           </h4>
 
@@ -158,7 +158,7 @@ export const AdminLocation: React.FC = () => {
           <div className="pt-4 border-t border-gray-100">
             <div className="flex items-center justify-between gap-2 mb-3">
               <h4 className="font-serif text-base text-gray-900 flex items-center gap-2">
-                <MapPin size={16} className="text-[#8C7355]" />
+                <MapPin size={16} className="text-[#657153]" />
                 <span>Local da Recepção & Festa</span>
               </h4>
               <span className="text-[11px] text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full font-medium">
@@ -265,7 +265,7 @@ export const AdminLocation: React.FC = () => {
         <div className="pt-4 border-t border-gray-100 flex justify-end">
           <button
             type="submit"
-            className="flex items-center gap-2 bg-[#8C7355] hover:bg-[#745F46] text-white py-2.5 px-6 rounded-xl text-xs uppercase font-semibold tracking-wider shadow-sm transition-all cursor-pointer"
+            className="flex items-center gap-2 bg-[#657153] hover:bg-[#4E5941] text-white py-2.5 px-6 rounded-xl text-xs uppercase font-semibold tracking-wider shadow-sm transition-all cursor-pointer"
           >
             <Save size={15} />
             <span>Salvar Localização</span>

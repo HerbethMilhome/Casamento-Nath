@@ -39,16 +39,16 @@ export const PublicWeddingPage: React.FC = () => {
     return (
       <div className="min-h-screen mesh-bg flex items-center justify-center p-4">
         <div className="glass rounded-[2rem] p-8 max-w-md w-full text-center shadow-2xl border border-white/70">
-          <div className="w-14 h-14 rounded-full bg-[#8C7355]/10 text-[#8C7355] flex items-center justify-center mx-auto mb-4">
+          <div className="w-14 h-14 rounded-full bg-[#657153]/10 text-[#657153] flex items-center justify-center mx-auto mb-4">
             <Lock size={26} />
           </div>
-          <span className="text-xs uppercase tracking-[0.2em] text-[#8C7355] font-semibold block mb-1">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#657153] font-semibold block mb-1">
             Casamento Privado
           </span>
-          <h2 className="font-serif text-3xl text-[#2A2623] mb-2">
+          <h2 className="font-serif text-3xl text-[#2C3225] mb-2">
             {wedding.coupleNames}
           </h2>
-          <p className="text-xs text-[#554D47] mb-6">
+          <p className="text-xs text-[#55594A] mb-6">
             Por favor, insira a senha fornecida no seu convite para acessar o site.
           </p>
 
@@ -59,7 +59,7 @@ export const PublicWeddingPage: React.FC = () => {
                 value={guestPassword}
                 onChange={(e) => setGuestPassword(e.target.value)}
                 placeholder="Senha de acesso"
-                className="w-full px-4 py-3 rounded-2xl border border-[#8C7355]/30 bg-white/80 text-sm focus:outline-none focus:ring-2 focus:ring-[#8C7355]/40 text-center"
+                className="w-full px-4 py-3 rounded-2xl border border-[#657153]/30 bg-white/80 text-sm focus:outline-none focus:ring-2 focus:ring-[#657153]/40 text-center"
               />
             </div>
 
@@ -71,7 +71,7 @@ export const PublicWeddingPage: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full bg-[#8C7355] hover:bg-[#745F46] text-white py-3 rounded-full text-xs uppercase tracking-wider font-semibold shadow-md transition-all cursor-pointer"
+              className="w-full bg-[#657153] hover:bg-[#4E5941] text-white py-3 rounded-full text-xs uppercase tracking-wider font-semibold shadow-md transition-all cursor-pointer"
             >
               Acessar Convite
             </button>

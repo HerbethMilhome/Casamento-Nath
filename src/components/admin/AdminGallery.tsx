@@ -41,7 +41,7 @@ export const AdminGallery: React.FC = () => {
 
         <button
           onClick={openAddModal}
-          className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#8C7355] hover:bg-[#745F46] text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
+          className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#657153] hover:bg-[#4E5941] text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
         >
           <Plus size={16} />
           <span>Adicionar Foto</span>
@@ -128,7 +128,7 @@ export const AdminGallery: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#8C7355] text-white text-xs font-semibold uppercase tracking-wider"
+                  className="px-5 py-2 rounded-xl bg-[#657153] text-white text-xs font-semibold uppercase tracking-wider"
                 >
                   Adicionar
                 </button>

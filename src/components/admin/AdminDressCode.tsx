@@ -11,14 +11,14 @@ export const AdminDressCode: React.FC = () => {
   const [dressCodeAvoid, setDressCodeAvoid] = useState(wedding.dressCodeAvoid || '');
   const [colors, setColors] = useState(wedding.dressCodeColors || []);
   const [newColorName, setNewColorName] = useState('');
-  const [newColorHex, setNewColorHex] = useState('#8C7355');
+  const [newColorHex, setNewColorHex] = useState('#657153');
   const [saved, setSaved] = useState(false);
 
   const handleAddColor = () => {
     if (!newColorName.trim()) return;
     setColors([...colors, { name: newColorName.trim(), hex: newColorHex }]);
     setNewColorName('');
-    setNewColorHex('#8C7355');
+    setNewColorHex('#657153');
   };
 
   const handleRemoveColor = (index: number) => {
@@ -72,7 +72,7 @@ export const AdminDressCode: React.FC = () => {
             value={dressCodeTitle}
             onChange={(e) => setDressCodeTitle(e.target.value)}
             placeholder="Ex: Esporte Fino / Praia Elegante"
-            className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
           />
         </div>
 
@@ -183,7 +183,7 @@ export const AdminDressCode: React.FC = () => {
         <div className="pt-4 border-t border-gray-100 flex justify-end">
           <button
             type="submit"
-            className="flex items-center gap-2 bg-[#8C7355] hover:bg-[#745F46] text-white py-2.5 px-6 rounded-xl text-xs uppercase font-semibold tracking-wider shadow-sm transition-all cursor-pointer"
+            className="flex items-center gap-2 bg-[#657153] hover:bg-[#4E5941] text-white py-2.5 px-6 rounded-xl text-xs uppercase font-semibold tracking-wider shadow-sm transition-all cursor-pointer"
           >
             <Save size={15} />
             <span>Salvar Dress Code</span>

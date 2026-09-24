@@ -93,27 +93,27 @@ export const RsvpSection: React.FC = () => {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 flex flex-col items-center">
           <MonogramCrest size="sm" variant="seal" className="mb-4" />
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#608334] font-semibold block mb-2">
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#657153] font-semibold block mb-2">
             Confirmação de Presença
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl text-[#202D17] font-normal mb-4">
+          <h2 className="font-serif text-3xl sm:text-5xl text-[#2C3225] font-normal mb-4">
             Celebre Conosco
           </h2>
-          <div className="w-16 h-[1.5px] bg-[#608334]/50 mx-auto mb-6" />
-          <p className="text-sm sm:text-base text-[#38452D] leading-relaxed font-light">
+          <div className="w-16 h-[1.5px] bg-[#657153]/50 mx-auto mb-6" />
+          <p className="text-sm sm:text-base text-[#3F463A] leading-relaxed font-light">
             Sua confirmação é essencial para organizarmos todos os detalhes com muito carinho. Por favor, confirme até o dia{' '}
-            <strong className="text-[#608334] font-medium">01 de novembro de 2026</strong>.
+            <strong className="text-[#657153] font-medium">01 de novembro de 2026</strong>.
           </p>
         </div>
 
         {/* Form Container */}
-        <div className="glass rounded-[2.5rem] p-6 sm:p-12 shadow-xl border border-[#CBDDB5] bg-[#F7FEEF]/90">
+        <div className="glass rounded-[2.5rem] p-6 sm:p-12 shadow-xl border border-[#E9DDCC] bg-[#F9F6EF]/90">
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
               
               {/* Attendance Choice Buttons */}
               <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-[#202D17] mb-3 text-center">
+                <label className="block text-xs uppercase tracking-wider font-semibold text-[#2C3225] mb-3 text-center">
                   Você comparecerá ao casamento? *
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
@@ -122,8 +122,8 @@ export const RsvpSection: React.FC = () => {
                     onClick={() => setAttending('yes')}
                     className={`py-3.5 px-6 rounded-2xl border text-xs sm:text-sm font-medium tracking-wide flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       attending === 'yes'
-                        ? 'bg-[#608334] text-white border-[#608334] shadow-md'
-                        : 'bg-white/60 text-[#202D17] border-[#CBDDB5] hover:border-[#608334]'
+                        ? 'bg-[#657153] text-white border-[#657153] shadow-md'
+                        : 'bg-white/60 text-[#2C3225] border-[#E9DDCC] hover:border-[#657153]'
                     }`}
                   >
                     <CheckCircle size={18} />
@@ -135,8 +135,8 @@ export const RsvpSection: React.FC = () => {
                     onClick={() => setAttending('no')}
                     className={`py-3.5 px-6 rounded-2xl border text-xs sm:text-sm font-medium tracking-wide flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       attending === 'no'
-                        ? 'bg-[#38452D] text-white border-[#38452D] shadow-md'
-                        : 'bg-white/60 text-[#202D17] border-[#CBDDB5] hover:border-[#608334]'
+                        ? 'bg-[#3F463A] text-white border-[#3F463A] shadow-md'
+                        : 'bg-white/60 text-[#2C3225] border-[#E9DDCC] hover:border-[#657153]'
                     }`}
                   >
                     <span>Infelizmente não poderei ir</span>
@@ -147,7 +147,7 @@ export const RsvpSection: React.FC = () => {
               {/* Personal Details */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-4">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs uppercase tracking-wider font-medium text-[#202D17] mb-1.5">
+                  <label className="block text-xs uppercase tracking-wider font-medium text-[#2C3225] mb-1.5">
                     Nome Completo *
                   </label>
                   <input
@@ -156,12 +156,12 @@ export const RsvpSection: React.FC = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Seu nome completo"
-                    className="w-full px-4 py-3 rounded-2xl border border-[#CBDDB5] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#608334]/40"
+                    className="w-full px-4 py-3 rounded-2xl border border-[#E9DDCC] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#657153]/40"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider font-medium text-[#202D17] mb-1.5">
+                  <label className="block text-xs uppercase tracking-wider font-medium text-[#2C3225] mb-1.5">
                     E-mail *
                   </label>
                   <input
@@ -170,12 +170,12 @@ export const RsvpSection: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="seu.email@exemplo.com"
-                    className="w-full px-4 py-3 rounded-2xl border border-[#CBDDB5] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#608334]/40"
+                    className="w-full px-4 py-3 rounded-2xl border border-[#E9DDCC] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#657153]/40"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider font-medium text-[#202D17] mb-1.5">
+                  <label className="block text-xs uppercase tracking-wider font-medium text-[#2C3225] mb-1.5">
                     Telefone / WhatsApp *
                   </label>
                   <input
@@ -184,18 +184,18 @@ export const RsvpSection: React.FC = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="(85) 99999-9999"
-                    className="w-full px-4 py-3 rounded-2xl border border-[#CBDDB5] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#608334]/40"
+                    className="w-full px-4 py-3 rounded-2xl border border-[#E9DDCC] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#657153]/40"
                   />
                 </div>
               </div>
 
               {/* If Attending: Plus Ones / Family & Dietary Options */}
               {attending === 'yes' && (
-                <div className="space-y-6 pt-4 border-t border-[#CBDDB5]/60">
+                <div className="space-y-6 pt-4 border-t border-[#E9DDCC]/60">
                   {/* Plus Ones / Family Toggle */}
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <label className="text-xs uppercase tracking-wider font-medium text-[#202D17]">
+                      <label className="text-xs uppercase tracking-wider font-medium text-[#2C3225]">
                         Possui acompanhante ou familiares no seu convite?
                       </label>
                       <button
@@ -205,14 +205,14 @@ export const RsvpSection: React.FC = () => {
                           setHasPlusOnes(next);
                           if (next && plusOneNames.length === 0) setPlusOneNames(['']);
                         }}
-                        className="text-xs text-[#608334] underline font-medium cursor-pointer"
+                        className="text-xs text-[#657153] underline font-medium cursor-pointer"
                       >
                         {hasPlusOnes ? 'Remover acompanhantes' : '+ Adicionar acompanhante'}
                       </button>
                     </div>
 
                     {hasPlusOnes && (
-                      <div className="space-y-3 p-4 rounded-2xl bg-white/60 border border-[#CBDDB5]">
+                      <div className="space-y-3 p-4 rounded-2xl bg-white/60 border border-[#E9DDCC]">
                         {plusOneNames.map((pName, index) => (
                           <div key={index} className="flex items-center gap-2">
                             <input
@@ -220,7 +220,7 @@ export const RsvpSection: React.FC = () => {
                               value={pName}
                               onChange={(e) => handleUpdatePlusOne(index, e.target.value)}
                               placeholder={`Nome do acompanhante ${index + 1}`}
-                              className="flex-1 px-4 py-2.5 rounded-xl border border-[#CBDDB5] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#608334]/40"
+                              className="flex-1 px-4 py-2.5 rounded-xl border border-[#E9DDCC] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#657153]/40"
                             />
                             <button
                               type="button"
@@ -236,7 +236,7 @@ export const RsvpSection: React.FC = () => {
                         <button
                           type="button"
                           onClick={handleAddPlusOne}
-                          className="flex items-center gap-1.5 text-xs text-[#608334] font-medium tracking-wider uppercase pt-1 cursor-pointer"
+                          className="flex items-center gap-1.5 text-xs text-[#657153] font-medium tracking-wider uppercase pt-1 cursor-pointer"
                         >
                           <Plus size={14} />
                           <span>Adicionar mais uma pessoa</span>
@@ -247,7 +247,7 @@ export const RsvpSection: React.FC = () => {
 
                   {/* Dietary Restrictions */}
                   <div>
-                    <label className="block text-xs uppercase tracking-wider font-medium text-[#202D17] mb-2">
+                    <label className="block text-xs uppercase tracking-wider font-medium text-[#2C3225] mb-2">
                       Possui alguma restrição alimentar ou alergia?
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -266,8 +266,8 @@ export const RsvpSection: React.FC = () => {
                           onClick={() => setDietaryRestriction(opt.id as DietaryRestriction)}
                           className={`py-2 px-3 rounded-xl border text-xs transition-all cursor-pointer ${
                             dietaryRestriction === opt.id
-                              ? 'bg-[#608334] text-white border-[#608334]'
-                              : 'bg-white/60 text-[#202D17] border-[#CBDDB5] hover:border-[#608334]'
+                              ? 'bg-[#657153] text-white border-[#657153]'
+                              : 'bg-white/60 text-[#2C3225] border-[#E9DDCC] hover:border-[#657153]'
                           }`}
                         >
                           {opt.label}
@@ -281,7 +281,7 @@ export const RsvpSection: React.FC = () => {
                         value={dietaryDetail}
                         onChange={(e) => setDietaryDetail(e.target.value)}
                         placeholder="Por favor, especifique qual alimento ou restrição..."
-                        className="mt-3 w-full px-4 py-2.5 rounded-xl border border-[#CBDDB5] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#608334]/40"
+                        className="mt-3 w-full px-4 py-2.5 rounded-xl border border-[#E9DDCC] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#657153]/40"
                       />
                     )}
                   </div>
@@ -290,7 +290,7 @@ export const RsvpSection: React.FC = () => {
 
               {/* Message to Couple */}
               <div>
-                <label className="block text-xs uppercase tracking-wider font-medium text-[#202D17] mb-1.5">
+                <label className="block text-xs uppercase tracking-wider font-medium text-[#2C3225] mb-1.5">
                   Quer deixar uma mensagem para os noivos?
                 </label>
                 <textarea
@@ -298,7 +298,7 @@ export const RsvpSection: React.FC = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Escreva seus votos, carinho ou recado aos noivos..."
-                  className="w-full px-4 py-3 rounded-2xl border border-[#CBDDB5] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#608334]/40"
+                  className="w-full px-4 py-3 rounded-2xl border border-[#E9DDCC] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#657153]/40"
                 />
               </div>
 
@@ -315,7 +315,7 @@ export const RsvpSection: React.FC = () => {
                 <button
                   type="submit"
                   disabled={enviando}
-                  className="inline-flex items-center justify-center gap-2 bg-[#608334] hover:bg-[#4E6B2A] disabled:bg-[#608334]/60 disabled:cursor-wait text-white text-xs tracking-[0.2em] uppercase font-semibold px-10 py-4 rounded-full transition-all shadow-md hover:shadow-lg cursor-pointer w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 bg-[#657153] hover:bg-[#4E5941] disabled:bg-[#657153]/60 disabled:cursor-wait text-white text-xs tracking-[0.2em] uppercase font-semibold px-10 py-4 rounded-full transition-all shadow-md hover:shadow-lg cursor-pointer w-full sm:w-auto"
                 >
                   {enviando ? (
                     <>
@@ -335,18 +335,18 @@ export const RsvpSection: React.FC = () => {
           ) : (
             /* Success confirmation display */
             <div className="text-center py-10 animate-in fade-in zoom-in-95 duration-300">
-              <div className="w-16 h-16 rounded-full bg-[#608334]/15 text-[#608334] flex items-center justify-center mx-auto mb-4">
-                <Heart size={32} className="fill-[#608334]" />
+              <div className="w-16 h-16 rounded-full bg-[#657153]/15 text-[#657153] flex items-center justify-center mx-auto mb-4">
+                <Heart size={32} className="fill-[#657153]" />
               </div>
-              <h3 className="font-serif text-3xl text-[#202D17] mb-3">
+              <h3 className="font-serif text-3xl text-[#2C3225] mb-3">
                 {responseFeedback}
               </h3>
-              <p className="text-sm text-[#38452D] max-w-md mx-auto leading-relaxed mb-8">
+              <p className="text-sm text-[#3F463A] max-w-md mx-auto leading-relaxed mb-8">
                 Registramos sua resposta com sucesso. Caso precise alterar alguma informação posteriormente, entre em contato conosco.
               </p>
               <button
                 onClick={resetForm}
-                className="glass hover:bg-white text-[#202D17] text-xs tracking-wider uppercase px-6 py-2.5 rounded-full border border-[#CBDDB5] cursor-pointer"
+                className="glass hover:bg-white text-[#2C3225] text-xs tracking-wider uppercase px-6 py-2.5 rounded-full border border-[#E9DDCC] cursor-pointer"
               >
                 Enviar outra confirmação
               </button>

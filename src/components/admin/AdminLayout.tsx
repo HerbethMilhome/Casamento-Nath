@@ -75,7 +75,7 @@ export const AdminLayout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF9F7] flex flex-col md:flex-row text-gray-800">
+    <div className="min-h-screen bg-[#F9F6EF] flex flex-col md:flex-row text-gray-800">
       
       {/* Mobile Topbar */}
       <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-gray-200">
@@ -86,13 +86,13 @@ export const AdminLayout: React.FC = () => {
           {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
 
-        <div className="font-serif text-lg font-medium text-[#2A2623]">
+        <div className="font-serif text-lg font-medium text-[#2C3225]">
           {wedding.coupleNames}
         </div>
 
         <button
           onClick={() => setActiveView('public')}
-          className="p-2 text-[#8C7355] rounded-lg hover:bg-gray-100"
+          className="p-2 text-[#657153] rounded-lg hover:bg-gray-100"
           title="Ver site"
         >
           <Eye size={20} />
@@ -107,7 +107,7 @@ export const AdminLayout: React.FC = () => {
         <div>
           {/* Brand header */}
           <div className="p-6 border-b border-gray-100">
-            <span className="text-[10px] tracking-[0.25em] uppercase text-[#8C7355] font-semibold block mb-1">
+            <span className="text-[10px] tracking-[0.25em] uppercase text-[#657153] font-semibold block mb-1">
               Painel Administrativo
             </span>
             <h2 className="font-serif text-xl text-gray-900 leading-tight">
@@ -130,7 +130,7 @@ export const AdminLayout: React.FC = () => {
                   onClick={() => handleSelectSection(item.id)}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium transition-colors cursor-pointer text-left ${
                     isActive
-                      ? 'bg-[#8C7355] text-white font-semibold shadow-sm'
+                      ? 'bg-[#657153] text-white font-semibold shadow-sm'
                       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                   }`}
                 >

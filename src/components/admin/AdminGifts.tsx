@@ -94,7 +94,7 @@ export const AdminGifts: React.FC = () => {
 
         <button
           onClick={openAddModal}
-          className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#8C7355] hover:bg-[#745F46] text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
+          className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#657153] hover:bg-[#4E5941] text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
         >
           <Plus size={16} />
           <span>Adicionar Presente</span>
@@ -119,7 +119,7 @@ export const AdminGifts: React.FC = () => {
                 </span>
                 {g.status === 'gifted' && (
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <span className="bg-[#8C7355] text-white text-[10px] font-semibold uppercase px-2.5 py-1 rounded-full">
+                    <span className="bg-[#657153] text-white text-[10px] font-semibold uppercase px-2.5 py-1 rounded-full">
                       Já Presenteado
                     </span>
                   </div>
@@ -132,7 +132,7 @@ export const AdminGifts: React.FC = () => {
               <p className="text-xs text-gray-500 line-clamp-2 mb-2">
                 {g.description}
               </p>
-              <div className="font-serif text-base font-semibold text-[#8C7355]">
+              <div className="font-serif text-base font-semibold text-[#657153]">
                 R$ {g.price.toFixed(2)}
               </div>
               {g.giftedBy && (
@@ -160,7 +160,7 @@ export const AdminGifts: React.FC = () => {
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => openEditModal(g)}
-                  className="p-1.5 text-gray-500 hover:text-[#8C7355] rounded-lg"
+                  className="p-1.5 text-gray-500 hover:text-[#657153] rounded-lg"
                   title="Editar"
                 >
                   <Edit3 size={15} />
@@ -209,7 +209,7 @@ export const AdminGifts: React.FC = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Ex: Jantar Romântico na Lua de Mel"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                 />
               </div>
 
@@ -225,7 +225,7 @@ export const AdminGifts: React.FC = () => {
                     required
                     value={price}
                     onChange={(e) => setPrice(Number(e.target.value))}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
                   />
                 </div>
 
@@ -341,7 +341,7 @@ export const AdminGifts: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#8C7355] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#745F46]"
+                  className="px-5 py-2 rounded-xl bg-[#657153] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#4E5941]"
                 >
                   Salvar
                 </button>

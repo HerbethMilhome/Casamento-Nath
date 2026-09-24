@@ -37,25 +37,25 @@ export const GallerySection: React.FC = () => {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#8C7355] font-semibold block mb-2">
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#657153] font-semibold block mb-2">
             Memórias & Ensaios
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl text-[#2A2623] font-normal mb-4">
+          <h2 className="font-serif text-3xl sm:text-5xl text-[#2C3225] font-normal mb-4">
             Nossos Momentos
           </h2>
-          <div className="w-16 h-[1.5px] bg-[#8C7355]/40 mx-auto mb-6" />
-          <p className="text-sm sm:text-base text-[#554D47] leading-relaxed font-light">
+          <div className="w-16 h-[1.5px] bg-[#657153]/40 mx-auto mb-6" />
+          <p className="text-sm sm:text-base text-[#55594A] leading-relaxed font-light">
             Um vislumbre dos sorrisos, olhares e viagens que construíram nossa história. Clique nas fotos para ampliar.
           </p>
 
           {/* Layout Mode Selector */}
-          <div className="inline-flex items-center gap-1 glass p-1 rounded-full mt-6 border border-[#8C7355]/20">
+          <div className="inline-flex items-center gap-1 glass p-1 rounded-full mt-6 border border-[#657153]/20">
             <button
               onClick={() => setLayoutMode('grid')}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs tracking-wider uppercase transition-all ${
                 layoutMode === 'grid'
-                  ? 'bg-[#8C7355] text-white font-medium shadow-sm'
-                  : 'text-[#554D47] hover:text-[#8C7355]'
+                  ? 'bg-[#657153] text-white font-medium shadow-sm'
+                  : 'text-[#55594A] hover:text-[#657153]'
               }`}
             >
               <LayoutGrid size={14} />
@@ -65,8 +65,8 @@ export const GallerySection: React.FC = () => {
               onClick={() => setLayoutMode('mosaic')}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs tracking-wider uppercase transition-all ${
                 layoutMode === 'mosaic'
-                  ? 'bg-[#8C7355] text-white font-medium shadow-sm'
-                  : 'text-[#554D47] hover:text-[#8C7355]'
+                  ? 'bg-[#657153] text-white font-medium shadow-sm'
+                  : 'text-[#55594A] hover:text-[#657153]'
               }`}
             >
               <Grid3X3 size={14} />
@@ -76,8 +76,8 @@ export const GallerySection: React.FC = () => {
               onClick={() => setLayoutMode('carousel')}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs tracking-wider uppercase transition-all ${
                 layoutMode === 'carousel'
-                  ? 'bg-[#8C7355] text-white font-medium shadow-sm'
-                  : 'text-[#554D47] hover:text-[#8C7355]'
+                  ? 'bg-[#657153] text-white font-medium shadow-sm'
+                  : 'text-[#55594A] hover:text-[#657153]'
               }`}
             >
               <Columns size={14} />
@@ -171,14 +171,14 @@ export const GallerySection: React.FC = () => {
             {/* Navigation buttons */}
             <button
               onClick={() => setCarouselIndex((carouselIndex - 1 + sortedPhotos.length) % sortedPhotos.length)}
-              className="absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full glass flex items-center justify-center text-[#2A2623] hover:bg-white transition-colors"
+              className="absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full glass flex items-center justify-center text-[#2C3225] hover:bg-white transition-colors"
               aria-label="Foto anterior"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={() => setCarouselIndex((carouselIndex + 1) % sortedPhotos.length)}
-              className="absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full glass flex items-center justify-center text-[#2A2623] hover:bg-white transition-colors"
+              className="absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full glass flex items-center justify-center text-[#2C3225] hover:bg-white transition-colors"
               aria-label="Próxima foto"
             >
               <ChevronRight size={20} />
@@ -187,14 +187,14 @@ export const GallerySection: React.FC = () => {
         )}
 
         {/* Guest photos future upload teaser */}
-        <div className="mt-12 glass rounded-2xl p-6 text-center max-w-xl mx-auto border border-[#8C7355]/20">
-          <div className="w-10 h-10 rounded-full bg-[#8C7355]/10 text-[#8C7355] flex items-center justify-center mx-auto mb-3">
+        <div className="mt-12 glass rounded-2xl p-6 text-center max-w-xl mx-auto border border-[#657153]/20">
+          <div className="w-10 h-10 rounded-full bg-[#657153]/10 text-[#657153] flex items-center justify-center mx-auto mb-3">
             <Camera size={20} />
           </div>
-          <h4 className="font-serif text-lg text-[#2A2623] mb-1">
+          <h4 className="font-serif text-lg text-[#2C3225] mb-1">
             Espaço para Fotos dos Convidados
           </h4>
-          <p className="text-xs text-[#554D47] leading-relaxed">
+          <p className="text-xs text-[#55594A] leading-relaxed">
             No dia do casamento, disponibilizaremos um QR Code especial nas mesas para que todos possam enviar as fotos tiradas durante a celebração diretamente para a nossa galeria!
           </p>
         </div>

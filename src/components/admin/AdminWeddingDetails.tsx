@@ -60,7 +60,7 @@ export const AdminWeddingDetails: React.FC = () => {
               value={formData.coupleNames}
               onChange={handleChange}
               required
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
             />
           </div>
 
@@ -77,7 +77,7 @@ export const AdminWeddingDetails: React.FC = () => {
                 name="slug"
                 value={formData.slug}
                 onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-r-xl border border-gray-200 text-xs font-mono focus:ring-2 focus:ring-[#8C7355]/40"
+                className="w-full px-3.5 py-2.5 rounded-r-xl border border-gray-200 text-xs font-mono focus:ring-2 focus:ring-[#657153]/40"
               />
             </div>
           </div>
@@ -95,7 +95,7 @@ export const AdminWeddingDetails: React.FC = () => {
               value={formData.weddingDate}
               onChange={handleChange}
               required
-              className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+              className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
             />
           </div>
 
@@ -109,7 +109,7 @@ export const AdminWeddingDetails: React.FC = () => {
               value={formData.ceremonyTime}
               onChange={handleChange}
               placeholder="Ex: 16:30"
-              className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+              className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
             />
           </div>
 
@@ -122,7 +122,7 @@ export const AdminWeddingDetails: React.FC = () => {
               name="city"
               value={formData.city}
               onChange={handleChange}
-              className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+              className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
             />
           </div>
 
@@ -135,7 +135,7 @@ export const AdminWeddingDetails: React.FC = () => {
               name="state"
               value={formData.state}
               onChange={handleChange}
-              className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+              className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
             />
           </div>
         </div>
@@ -152,7 +152,7 @@ export const AdminWeddingDetails: React.FC = () => {
               value={formData.monogram}
               onChange={handleChange}
               placeholder="Ex: N & I"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
             />
           </div>
 
@@ -166,7 +166,7 @@ export const AdminWeddingDetails: React.FC = () => {
               value={formData.hashtag}
               onChange={handleChange}
               placeholder="#NathalieEIgor2026"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
             />
           </div>
         </div>
@@ -182,7 +182,7 @@ export const AdminWeddingDetails: React.FC = () => {
               name="heroPhotoUrl"
               value={formData.heroPhotoUrl}
               onChange={handleChange}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs font-mono focus:ring-2 focus:ring-[#8C7355]/40"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs font-mono focus:ring-2 focus:ring-[#657153]/40"
             />
           </div>
 
@@ -195,7 +195,7 @@ export const AdminWeddingDetails: React.FC = () => {
               name="coverPhrase"
               value={formData.coverPhrase}
               onChange={handleChange}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#8C7355]/40"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#657153]/40"
             />
           </div>
         </div>
@@ -265,7 +265,7 @@ export const AdminWeddingDetails: React.FC = () => {
               name="isPasswordProtected"
               checked={formData.isPasswordProtected}
               onChange={handleChange}
-              className="w-4 h-4 rounded text-[#8C7355] focus:ring-[#8C7355]"
+              className="w-4 h-4 rounded text-[#657153] focus:ring-[#657153]"
             />
             <label htmlFor="isPasswordProtected" className="text-xs text-gray-700 font-medium">
               Proteger o site com senha para os convidados (Acesso Restrito)
@@ -291,7 +291,7 @@ export const AdminWeddingDetails: React.FC = () => {
         <div className="pt-4 border-t border-gray-100 flex justify-end">
           <button
             type="submit"
-            className="flex items-center gap-2 bg-[#8C7355] hover:bg-[#745F46] text-white py-2.5 px-6 rounded-xl text-xs uppercase font-semibold tracking-wider shadow-sm transition-all cursor-pointer"
+            className="flex items-center gap-2 bg-[#657153] hover:bg-[#4E5941] text-white py-2.5 px-6 rounded-xl text-xs uppercase font-semibold tracking-wider shadow-sm transition-all cursor-pointer"
           >
             <Save size={15} />
             <span>Salvar Alterações</span>

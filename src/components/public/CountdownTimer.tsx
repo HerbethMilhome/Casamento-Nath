@@ -47,8 +47,8 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDateStr, t
   if (timeLeft.isPast) {
     return (
       <div className="glass px-6 py-4 rounded-2xl inline-flex items-center gap-3">
-        <span className="w-2.5 h-2.5 rounded-full bg-[#8C7355] animate-ping" />
-        <span className="font-serif text-lg text-[#2A2623]">O grande dia chegou! Celebrem conosco!</span>
+        <span className="w-2.5 h-2.5 rounded-full bg-[#657153] animate-ping" />
+        <span className="font-serif text-lg text-[#2C3225]">O grande dia chegou! Celebrem conosco!</span>
       </div>
     );
   }
@@ -67,10 +67,10 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDateStr, t
           key={idx}
           className="glass rounded-2xl px-3 sm:px-5 py-3 sm:py-4 flex flex-col items-center min-w-[70px] sm:min-w-[84px] shadow-sm hover:translate-y-[-2px] transition-transform"
         >
-          <span className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#2A2623] font-light leading-none">
+          <span className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#2C3225] font-light leading-none">
             {item.value}
           </span>
-          <span className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-[#8C7355] font-medium mt-1.5 opacity-80">
+          <span className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-[#657153] font-medium mt-1.5 opacity-80">
             {item.label}
           </span>
         </div>

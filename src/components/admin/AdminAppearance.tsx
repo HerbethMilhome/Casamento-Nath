@@ -14,19 +14,19 @@ export const AdminAppearance: React.FC = () => {
       id: 'frosted_glass',
       name: 'Frosted Glass (Tema Atual)',
       description: 'Elegância etérea com vidro fosco translúcido, reflexos suaves e paleta nobre de bronze dourado e areia.',
-      colors: ['#8C7355', '#D4AF37', '#E8DFD8', '#F9F6F2'],
+      colors: ['#657153', '#A98C5B', '#E9DDCC', '#F9F6EF'],
     },
     {
       id: 'classico',
       name: 'Clássico Sofisticado',
       description: 'Estética atemporal de alta celebração, com tons de dourado nobre, champanhe e linho claro.',
-      colors: ['#9A7B56', '#C5A059', '#F4EFEA', '#FBF9F7'],
+      colors: ['#A98C5B', '#C5A059', '#F3EDE1', '#F9F6EF'],
     },
     {
       id: 'minimalista',
       name: 'Minimalista Contemporâneo',
       description: 'Linhas puras, alto contraste, preto ébano refinado, cinzas quentes e tipografia editorial de vanguarda.',
-      colors: ['#2A2623', '#686058', '#E6E4E2', '#FFFFFF'],
+      colors: ['#2C3225', '#55594A', '#E9DDCC', '#FFFFFF'],
     },
     {
       id: 'romantico',
@@ -38,13 +38,13 @@ export const AdminAppearance: React.FC = () => {
       id: 'jardim',
       name: 'Jardim Botânico',
       description: 'Inspirado na natureza, folhagens de eucalipto, verde oliva toscano e madeira clara.',
-      colors: ['#4E6B56', '#87A987', '#E7EFE9', '#F8FAF8'],
+      colors: ['#4E5941', '#8A9468', '#F3EDE1', '#F9F6EF'],
     },
     {
       id: 'terracota',
       name: 'Terracota & Pôr do Sol',
       description: 'Calor e aconchego em tons de terracota queimada, argila, areia e sol poente.',
-      colors: ['#A65B43', '#D9826C', '#F3E5E0', '#FAF6F4'],
+      colors: ['#A65B43', '#D9826C', '#F3E5E0', '#F9F6EF'],
     },
   ];
 
@@ -126,12 +126,12 @@ export const AdminAppearance: React.FC = () => {
                 onClick={() => handleSelectPreset(p.id)}
                 className={`bg-white rounded-3xl p-6 border transition-all cursor-pointer relative shadow-sm hover:shadow-md ${
                   isSelected
-                    ? 'border-[#8C7355] ring-2 ring-[#8C7355]/30'
+                    ? 'border-[#657153] ring-2 ring-[#657153]/30'
                     : 'border-gray-100 hover:border-gray-300'
                 }`}
               >
                 {isSelected && (
-                  <span className="absolute top-4 right-4 bg-[#8C7355] text-white p-1 rounded-full">
+                  <span className="absolute top-4 right-4 bg-[#657153] text-white p-1 rounded-full">
                     <Check size={14} />
                   </span>
                 )}
@@ -156,7 +156,7 @@ export const AdminAppearance: React.FC = () => {
 
                 <div className="pt-3 border-t border-gray-100">
                   <span className={`text-[11px] font-semibold uppercase tracking-wider ${
-                    isSelected ? 'text-[#8C7355]' : 'text-gray-400'
+                    isSelected ? 'text-[#657153]' : 'text-gray-400'
                   }`}>
                     {isSelected ? 'Tema em uso no site' : 'Clique para aplicar'}
                   </span>
@@ -313,7 +313,7 @@ export const AdminAppearance: React.FC = () => {
                   onClick={() => handleCustomChange('buttonRadius', r.id)}
                   className={`p-3 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
                     currentConfig.buttonRadius === r.id
-                      ? 'bg-[#8C7355] text-white border-[#8C7355]'
+                      ? 'bg-[#657153] text-white border-[#657153]'
                       : 'border-gray-200 text-gray-700 hover:bg-gray-50'
                   }`}
                 >
