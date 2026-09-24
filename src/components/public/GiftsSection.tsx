@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useWedding } from '../../context/WeddingContext';
 import { Gift, GiftCategory } from '../../types';
-import { Gift as GiftIcon, ExternalLink, QrCode, Check, Copy, Heart, X, Sparkles } from 'lucide-react';
+import { ExternalLink, QrCode, Check, Copy, Heart, X, Sparkles } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
+import { GiftIllustration } from '../common/GiftIllustration';
+import { buildPixPayload } from '../../utils/pix';
 
 export const GiftsSection: React.FC = () => {
   const { gifts, wedding, giftItem } = useWedding();
@@ -11,7 +14,21 @@ export const GiftsSection: React.FC = () => {
   const [donorName, setDonorName] = useState('');
   const [donorMessage, setDonorMessage] = useState('');
   const [copiedPix, setCopiedPix] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
   const [giftCompleted, setGiftCompleted] = useState(false);
+
+  /**
+   * PIX BR Code for the open gift, already carrying the suggested amount so the
+   * guest's banking app opens with the value filled in.
+   */
+  const pixPayload = activeGift
+    ? buildPixPayload({
+        key: wedding.pixKey,
+        name: wedding.pixReceiverName,
+        city: wedding.pixCity,
+        amount: activeGift.price,
+      })
+    : '';
 
   const categories: (string | GiftCategory)[] = ['Todas', 'Lua de mel', 'Experiências', 'Casa', 'Cozinha', 'Viagem', 'Outros'];
 
@@ -30,6 +47,7 @@ export const GiftsSection: React.FC = () => {
     setDonorName('');
     setDonorMessage('');
     setCopiedPix(false);
+    setCopiedCode(false);
     setGiftCompleted(false);
   };
 
@@ -37,6 +55,12 @@ export const GiftsSection: React.FC = () => {
     navigator.clipboard.writeText(wedding.pixKey);
     setCopiedPix(true);
     setTimeout(() => setCopiedPix(false), 3000);
+  };
+
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText(pixPayload);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 3000);
   };
 
   const handleConfirmGift = (e: React.FormEvent) => {
@@ -60,7 +84,7 @@ export const GiftsSection: React.FC = () => {
           </h2>
           <div className="w-16 h-[1.5px] bg-[#657153]/40 mx-auto mb-6" />
           <p className="text-sm sm:text-base text-[#55594A] leading-relaxed font-light">
-            Sua presença é nosso maior presente! Se desejar nos abençoar com uma lembrança para nosso lar ou lua de mel, criamos cotas e opções especiais abaixo.
+            Sua presença é nosso maior presente — o resto é brincadeira nossa. Todas as cotas abaixo são simbólicas e o presente é sempre por PIX: escolha a que te fizer sorrir, leia o QR Code e pronto. As imagens são meramente ilustrativas.
           </p>
 
           {/* Category Pills */}
@@ -96,11 +120,16 @@ export const GiftsSection: React.FC = () => {
                 <div>
                   {/* Image */}
                   <div className="relative h-44 rounded-2xl overflow-hidden mb-4">
-                    <img
-                      src={gift.imageUrl}
-                      alt={gift.title}
-                      className="w-full h-full object-cover object-center"
-                    />
+                    {gift.imageUrl ? (
+                      <img
+                        src={gift.imageUrl}
+                        alt={gift.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-center"
+                      />
+                    ) : (
+                      <GiftIllustration motif={gift.art} label={gift.title} />
+                    )}
                     
                     {/* Category badge */}
                     <div className="absolute top-2.5 left-2.5 bg-black/40 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-wider text-white font-medium">
@@ -197,27 +226,57 @@ export const GiftsSection: React.FC = () => {
 
                 {/* PIX Details Box */}
                 <div className="p-4 rounded-2xl bg-white/70 border border-[#657153]/20 mb-6">
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between mb-3">
                     <span className="text-[10px] uppercase tracking-wider font-semibold text-[#657153] flex items-center gap-1">
-                      <QrCode size={14} /> Chave PIX dos Noivos ({wedding.pixType})
+                      <QrCode size={14} /> PIX dos Noivos
                     </span>
                     <span className="text-[10px] text-[#55594A]">{wedding.pixReceiverName}</span>
                   </div>
 
-                  <div className="flex items-center justify-between gap-2 p-2.5 bg-black/5 rounded-xl text-xs font-mono text-[#2C3225] break-all">
-                    <span>{wedding.pixKey}</span>
+                  {/* QR Code already carrying the suggested amount */}
+                  <div className="flex flex-col items-center gap-3 mb-4">
+                    <div className="bg-white p-3 rounded-2xl border border-[#E9DDCC] shadow-sm">
+                      <QRCodeSVG
+                        value={pixPayload}
+                        size={168}
+                        level="M"
+                        marginSize={0}
+                        bgColor="#FFFFFF"
+                        fgColor="#2C3225"
+                        title={`QR Code PIX de R$ ${activeGift.price.toFixed(2)} para ${wedding.pixReceiverName}`}
+                      />
+                    </div>
+                    <p className="text-[11px] text-[#55594A] text-center leading-relaxed max-w-xs">
+                      Abra o app do seu banco, escolha <strong>PIX → Ler QR Code</strong> e aponte para a
+                      imagem. O valor de <strong>R$ {activeGift.price.toFixed(2)}</strong> já vem preenchido —
+                      e você pode alterar para quanto quiser antes de confirmar.
+                    </p>
                     <button
-                      onClick={handleCopyPix}
-                      className="shrink-0 flex items-center gap-1 bg-[#657153] text-white px-3 py-1 rounded-lg text-[10px] font-sans uppercase font-medium hover:bg-[#4E5941] transition-colors"
+                      type="button"
+                      onClick={handleCopyCode}
+                      className="flex items-center gap-1.5 bg-[#657153] hover:bg-[#4E5941] text-white px-4 py-2 rounded-full text-[10px] uppercase tracking-wider font-semibold transition-colors cursor-pointer"
                     >
-                      {copiedPix ? <Check size={12} /> : <Copy size={12} />}
-                      <span>{copiedPix ? 'Copiado!' : 'Copiar'}</span>
+                      {copiedCode ? <Check size={12} /> : <Copy size={12} />}
+                      <span>{copiedCode ? 'Código copiado!' : 'Copiar código PIX (copia e cola)'}</span>
                     </button>
                   </div>
 
-                  <p className="text-[11px] text-[#55594A] mt-3 leading-relaxed">
-                    Você pode transferir qualquer quantia através do app do seu banco utilizando a chave PIX acima.
-                  </p>
+                  <div className="pt-3 border-t border-[#657153]/15">
+                    <span className="block text-[10px] uppercase tracking-wider text-[#657153] font-semibold mb-1.5">
+                      Ou use a chave ({wedding.pixType})
+                    </span>
+                    <div className="flex items-center justify-between gap-2 p-2.5 bg-black/5 rounded-xl text-xs font-mono text-[#2C3225] break-all">
+                      <span>{wedding.pixKey}</span>
+                      <button
+                        type="button"
+                        onClick={handleCopyPix}
+                        className="shrink-0 flex items-center gap-1 bg-[#657153] text-white px-3 py-1 rounded-lg text-[10px] font-sans uppercase font-medium hover:bg-[#4E5941] transition-colors cursor-pointer"
+                      >
+                        {copiedPix ? <Check size={12} /> : <Copy size={12} />}
+                        <span>{copiedPix ? 'Copiada!' : 'Copiar'}</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Confirmation Form */}

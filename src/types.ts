@@ -88,12 +88,33 @@ export type GiftType = 'symbolic' | 'external';
 
 export type GuestGroup = string;
 
+/** Line illustration shown when a gift has no photo. */
+export type GiftArtMotif =
+  | 'panela'
+  | 'airfryer'
+  | 'cafeteira'
+  | 'jantar'
+  | 'sofa'
+  | 'cama'
+  | 'lavadora'
+  | 'vassoura'
+  | 'churrasqueira'
+  | 'chuveiro'
+  | 'ferramentas'
+  | 'racao'
+  | 'futebol'
+  | 'bebe'
+  | 'viagem'
+  | 'planta';
+
 export interface Gift {
   id: string;
   title: string;
   description: string;
   price: number;
+  /** Empty means the illustration in `art` is rendered instead. */
   imageUrl: string;
+  art?: GiftArtMotif;
   category: GiftCategory;
   type: 'symbolic' | 'external';
   externalUrl?: string;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useWedding } from '../../context/WeddingContext';
-import { Gift, GiftCategory, GiftType } from '../../types';
+import { Gift, GiftArtMotif, GiftCategory, GiftType } from '../../types';
+import { GiftIllustration } from '../common/GiftIllustration';
 import { Plus, Edit3, Trash2, X, Check, ExternalLink, Heart } from 'lucide-react';
 
 export const AdminGifts: React.FC = () => {
@@ -14,11 +15,31 @@ export const AdminGifts: React.FC = () => {
   const [category, setCategory] = useState<GiftCategory>('Casa');
   const [type, setType] = useState<GiftType>('symbolic');
   const [imageUrl, setImageUrl] = useState('');
+  const [art, setArt] = useState<GiftArtMotif>('planta');
   const [externalUrl, setExternalUrl] = useState('');
   const [status, setStatus] = useState<'available' | 'gifted'>('available');
   const [giftedBy, setGiftedBy] = useState('');
 
   const categories: GiftCategory[] = ['Casa', 'Lua de mel', 'Experiências', 'Cozinha', 'Viagem', 'Outros'];
+
+  const artOptions: { value: GiftArtMotif; label: string }[] = [
+    { value: 'panela', label: 'Panelas' },
+    { value: 'airfryer', label: 'Air fryer' },
+    { value: 'cafeteira', label: 'Cafeteira' },
+    { value: 'jantar', label: 'Jogo de jantar' },
+    { value: 'sofa', label: 'Sofá' },
+    { value: 'cama', label: 'Cama' },
+    { value: 'lavadora', label: 'Máquina de lavar' },
+    { value: 'vassoura', label: 'Vassoura e pá' },
+    { value: 'churrasqueira', label: 'Churrasqueira' },
+    { value: 'chuveiro', label: 'Chuveiro' },
+    { value: 'ferramentas', label: 'Ferramentas' },
+    { value: 'racao', label: 'Ração / ferradura' },
+    { value: 'futebol', label: 'Camisa de futebol' },
+    { value: 'bebe', label: 'Bebê' },
+    { value: 'viagem', label: 'Mala de viagem' },
+    { value: 'planta', label: 'Plantinha' },
+  ];
 
   const openAddModal = () => {
     setEditingGift(null);
@@ -27,7 +48,8 @@ export const AdminGifts: React.FC = () => {
     setPrice(200);
     setCategory('Casa');
     setType('symbolic');
-    setImageUrl('https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80');
+    setImageUrl('');
+    setArt('planta');
     setExternalUrl('');
     setStatus('available');
     setGiftedBy('');
@@ -42,6 +64,7 @@ export const AdminGifts: React.FC = () => {
     setCategory(g.category);
     setType(g.type);
     setImageUrl(g.imageUrl);
+    setArt(g.art || 'planta');
     setExternalUrl(g.externalUrl || '');
     setStatus(g.status);
     setGiftedBy(g.giftedBy || '');
@@ -58,6 +81,7 @@ export const AdminGifts: React.FC = () => {
         category,
         type,
         imageUrl: imageUrl.trim(),
+        art,
         externalUrl: externalUrl.trim() || undefined,
         status,
         giftedBy: giftedBy.trim() || undefined,
@@ -70,6 +94,7 @@ export const AdminGifts: React.FC = () => {
         category,
         type,
         imageUrl: imageUrl.trim(),
+        art,
         externalUrl: externalUrl.trim() || undefined,
         status,
         giftedBy: giftedBy.trim() || undefined,
@@ -109,11 +134,15 @@ export const AdminGifts: React.FC = () => {
           >
             <div>
               <div className="relative h-36 rounded-xl overflow-hidden mb-3">
-                <img
-                  src={g.imageUrl}
-                  alt={g.title}
-                  className="w-full h-full object-cover"
-                />
+                {g.imageUrl ? (
+                  <img
+                    src={g.imageUrl}
+                    alt={g.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <GiftIllustration motif={g.art} label={g.title} />
+                )}
                 <span className="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white px-2 py-0.5 rounded text-[10px]">
                   {g.category}
                 </span>
@@ -292,15 +321,40 @@ export const AdminGifts: React.FC = () => {
 
               <div>
                 <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-1">
-                  URL da Imagem
+                  URL da Imagem (opcional)
                 </label>
                 <input
-                  type="url"
-                  required
+                  type="text"
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
+                  placeholder="Deixe vazio para usar a ilustração"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs font-mono"
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-1">
+                  Ilustração
+                </label>
+                <div className="flex items-center gap-3">
+                  <select
+                    value={art}
+                    onChange={(e) => setArt(e.target.value as GiftArtMotif)}
+                    className="flex-1 px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs bg-white"
+                  >
+                    {artOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="w-24 h-16 rounded-xl overflow-hidden border border-gray-200 shrink-0">
+                    <GiftIllustration motif={art} />
+                  </div>
+                </div>
+                <p className="text-[11px] text-gray-400 mt-1">
+                  Usada quando o presente não tem imagem própria.
+                </p>
               </div>
 
               <div>
