@@ -6,19 +6,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `npm run dev` — Vite dev server on port 3000, bound to `0.0.0.0`.
 - `npm run lint` — **this is `tsc --noEmit`, not a linter.** There is no ESLint/Prettier/Biome config in the repo. Run it after editing `.ts`/`.tsx` — it is the only automated check that exists.
-- `src/components/admin/` currently has **9 pre-existing type errors** (missing `hasPlusOne`, `order` passed where it is `Omit`ted, `heroPhotoUrl`/`coverPhrase` not on `WeddingData`). They are known and unrelated to your change — check that your edit did not *add* to the count rather than expecting zero.
+- `npm run lint` must come back **clean**. The 9 type errors this file used to warn about lived in `src/components/admin/`, which no longer exists — a new error is yours.
 - There is **no test suite and no test runner installed.** Do not suggest `npm test`. Verify changes by typechecking and by running the app.
 
 ## Architecture
 
-Single-page React 19 + Vite app, no router. `src/App.tsx` swaps between two views via `activeView` state in context: the public guest site (`components/public/`) and the couple's admin panel (`components/admin/`). A fixed bottom-right button toggles between them.
+Single-page React 19 + Vite app, no router. `src/App.tsx` renders one thing: the public guest site in `components/public/`.
+
+There used to be a couple's admin panel (`components/admin/`, a floating toggle, `loginAdmin` with hardcoded passwords). It was **deleted on purpose**: everything it edited was written to `localStorage`, so an edit made on the couple's phone never reached a single guest, while the panel and its passwords shipped in the public bundle for anyone to open. Content changes belong in `src/data/initialWeddingData.ts` and go live through a deploy. Don't reintroduce a client-side admin.
 
 `src/context/WeddingContext.tsx` is the data layer for everything except RSVP and guestbook messages (see below). It holds one `useState` per entity (wedding, milestones, godparents, guests, gifts, messages, photos, usefulInfo, faqs), mirrors each to `localStorage` through a dedicated `useEffect`, and exposes CRUD functions on the context value. Seed data lives in `src/data/initialWeddingData.ts`.
 
 Consequences to respect:
 - **Storage keys are versioned** (`casamento_guests_v1`, `casamento_photos_v2`, …) in the `STORAGE_KEYS` map. Changing the shape of a persisted entity requires bumping its key suffix, or returning users hydrate stale JSON into the new shape and crash.
 - State reads from `localStorage` in the `useState` initializer and is written back on every change. Adding an entity means adding all four pieces: state, its `STORAGE_KEYS` entry, its persistence `useEffect`, and its CRUD functions on the context type + value.
-- Auth is cosmetic. `loginAdmin` compares against hardcoded strings and the guest gate in `PublicWeddingPage.tsx` accepts `'123456'` as a universal bypass. This is a demo, not security — don't build anything on it that implies real access control.
+- There is no authentication anywhere, and none can exist in this app: it is a static bundle with no backend. The guest gate in `PublicWeddingPage.tsx` still accepts `'123456'` as a universal bypass and is off by default (`isPasswordProtected: false`). Never put anything private behind it.
+- `INITIAL_GUESTS` is deliberately empty. RSVPs live in the spreadsheet, so no guest name, phone or e-mail is compiled into the public bundle — keep it that way.
 
 ### RSVP and guestbook are NOT localStorage
 
@@ -53,9 +56,15 @@ Every gift is `type: 'symbolic'` and paid by PIX — there are no store links. `
 Tailwind v4 via `@tailwindcss/vite`, configured entirely in `src/index.css` (`@import "tailwindcss"`) — there is no `tailwind.config.js`.
 
 - **The rustic palette is canonical**: `--primary: #657153` (verde-oliva), `--accent: #A98C5B` (dourado envelhecido), `--accent-soft`/`--nude: #E9DDCC`, `--bg-page: #F9F6EF` (marfim), `--text-color: #3F463A`, `--text-heading: #2C3225`, defined as CSS vars in `index.css`. The whole site was migrated to it in one sweep — the old sage-green family (`#608334`, `#A8CA7E`, `#CBDDB5`, `#F7FEEF`) and the older brown/taupe one (`#8C7355`, `#745F46`) should not reappear. Components still hardcode hex values; keep to the palette above when you add any.
-- `AdminAppearance.tsx` lets the couple pick colors, fonts, `buttonRadius`, and `cardStyle`, but **no public component currently reads `theme` from context** — they all hardcode hex. When you create or substantially edit a public component, wire it to `theme` from `useWedding()` instead of hardcoding.
+- `theme` lives on `WeddingData` (see `THEME_PRESETS`) and is seeded with `frosted_glass`. Most public components still hardcode hex; `StorySection` and the gifts modal read `theme.primaryColor`/`accentColor` from `useWedding()`. Wire new or substantially edited components to `theme` instead of hardcoding.
 - Custom utility classes in `index.css` are the house style: `glass`, `glass-subtle`, `glass-dark`, `mesh-bg`, `font-cormorant`, `font-playfair`, `font-montserrat`, `font-sans-body`, `letter-spacing-wide`, `divider-gold`, `no-scrollbar`. Prefer these over re-implementing backdrop blur or font stacks inline.
 - Fonts load from Google Fonts in `index.html`, not from npm.
+
+## Security headers
+
+`vercel.json` sets a Content-Security-Policy (plus `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, HSTS) on every route. The policy is tight, so **any new external origin has to be added there or it is silently blocked in production and works fine in `npm run dev`**. Origins already allowed: Google Fonts, `images.unsplash.com` (and any `https:` image), `maps.google.com` in a frame, and both `script.google.com` and `script.googleusercontent.com` — the second one matters because `/exec` answers the JSONP request with a 302 to it.
+
+To verify a policy change, build, inject the same policy into `dist/index.html` as a `<meta http-equiv="Content-Security-Policy">`, serve `npx vite preview` and load the page watching the console for `Refused to…`.
 
 ## Conventions
 
@@ -75,4 +84,4 @@ Tailwind v4 via `@tailwindcss/vite`, configured entirely in `src/index.css` (`@i
 
 ## Repo state
 
-This directory is **not a git repository** — there is no version control, so edits are unrecoverable. Confirm before deleting or rewriting files wholesale.
+Git repository, remote `github.com/HerbethMilhome/Casamento-Nath`. The production branch is **`site`** (not `main`) — Vercel's Branch Tracking points there, so every push to `site` publishes the live guest site. Check what a change does to the published page before pushing.

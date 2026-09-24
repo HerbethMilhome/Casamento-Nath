@@ -93,16 +93,6 @@ interface WeddingContextType {
   updateCustomTheme: (updates: Partial<ThemeConfig>) => void;
   setThemeConfig: (updates: Partial<ThemeConfig>) => void;
   
-  isAdminAuthenticated: boolean;
-  isAdminLoggedIn: boolean;
-  loginAdmin: (password: string) => boolean;
-  logoutAdmin: () => void;
-  
-  activeView: 'public' | 'admin';
-  setActiveView: (view: 'public' | 'admin') => void;
-  adminSection: string;
-  setAdminSection: (section: string) => void;
-  
   updateWeddingDetails: (updates: Partial<WeddingData>) => void;
   toggleMessageApproval: (id: string) => void;
   resetToDefaults: () => void;
@@ -113,13 +103,12 @@ const STORAGE_KEYS = {
   WEDDING: 'casamento_data_v5',
   STORY: 'casamento_story_v2',
   GODPARENTS: 'casamento_godparents_v1',
-  GUESTS: 'casamento_guests_v1',
+  GUESTS: 'casamento_guests_v2',
   GIFTS: 'casamento_gifts_v2',
   MESSAGES: 'casamento_messages_v1',
   PHOTOS: 'casamento_photos_v2',
   USEFUL_INFO: 'casamento_useful_info_v2',
   FAQS: 'casamento_faqs_v2',
-  ADMIN_AUTH: 'casamento_admin_auth_v1',
 };
 
 const WeddingContext = createContext<WeddingContextType | undefined>(undefined);
@@ -170,12 +159,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({ child
     return saved ? JSON.parse(saved) : INITIAL_FAQS;
   });
 
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => {
-    return localStorage.getItem(STORAGE_KEYS.ADMIN_AUTH) === 'true';
-  });
 
-  const [activeView, setActiveView] = useState<'public' | 'admin'>('public');
-  const [adminSection, setAdminSection] = useState<string>('dashboard');
 
   // Persistence effects
   useEffect(() => {
@@ -213,10 +197,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({ child
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.FAQS, JSON.stringify(faqs));
   }, [faqs]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.ADMIN_AUTH, String(isAdminAuthenticated));
-  }, [isAdminAuthenticated]);
 
   // Recados aprovados vêm da planilha, não do localStorage — é o que permite um
   // convidado ver o recado que outro convidado deixou.
@@ -519,19 +499,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }));
   };
 
-  const loginAdmin = (password: string): boolean => {
-    // Demo password or default '123456' or 'casamento' or 'admin'
-    if (password === '123456' || password === 'casamento' || password === 'admin' || password === 'nathalie2026') {
-      setIsAdminAuthenticated(true);
-      return true;
-    }
-    return false;
-  };
-
-  const logoutAdmin = () => {
-    setIsAdminAuthenticated(false);
-  };
-
   const resetToDefaults = () => {
     setWedding(INITIAL_WEDDING);
     setMilestones(INITIAL_STORY);
@@ -589,14 +556,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({ child
         applyThemePreset: setThemePreset,
         updateCustomTheme,
         setThemeConfig: updateCustomTheme,
-        isAdminAuthenticated,
-        isAdminLoggedIn: isAdminAuthenticated,
-        loginAdmin,
-        logoutAdmin,
-        activeView,
-        setActiveView,
-        adminSection,
-        setAdminSection,
         updateWeddingDetails: updateWedding,
         toggleMessageApproval: (id: string) => {
           setMessages(prev => prev.map(m => m.id === id ? { ...m, isApproved: !m.isApproved } : m));

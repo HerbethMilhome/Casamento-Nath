@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useWedding } from '../../context/WeddingContext';
-import { Menu, X, Heart, Lock, Share2 } from 'lucide-react';
+import { Menu, X, Share2 } from 'lucide-react';
 import { MonogramCrest } from '../common/MonogramCrest';
 import { formatDateLong } from '../../utils/format';
 
@@ -9,7 +9,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
-  const { wedding, setActiveView } = useWedding();
+  const { wedding } = useWedding();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -85,7 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
           ))}
         </nav>
 
-        {/* Actions (Share, RSVP CTA, Admin access) */}
+        {/* Actions (Share, RSVP CTA) */}
         <div className="hidden sm:flex items-center gap-3">
           <button
             id="nav-share-btn"
@@ -102,16 +102,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
             className="bg-[#657153] hover:bg-[#4E5941] text-white text-[11px] font-medium tracking-[0.15em] uppercase px-5 py-2 rounded-full transition-all shadow-sm hover:shadow cursor-pointer"
           >
             Confirmar Presença
-          </button>
-
-          <button
-            id="nav-admin-btn"
-            onClick={() => setActiveView('admin')}
-            title="Área dos Noivos (Painel Administrativo)"
-            className="flex items-center gap-1.5 text-[10px] tracking-wider uppercase text-[#657153] hover:text-[#2C3225] px-3 py-1.5 rounded-full border border-[#E9DDCC] hover:border-[#657153] transition-all bg-white/60 cursor-pointer"
-          >
-            <Lock size={12} />
-            <span>Área dos Noivos</span>
           </button>
         </div>
 
@@ -166,17 +156,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
               >
                 <Share2 size={14} />
                 <span>Compartilhar Convite</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setActiveView('admin');
-                }}
-                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-[#E9DDCC] text-xs tracking-wider uppercase text-[#2C3225] bg-white/80 font-medium cursor-pointer"
-              >
-                <Lock size={14} />
-                <span>Acessar Painel dos Noivos</span>
               </button>
             </div>
           </div>

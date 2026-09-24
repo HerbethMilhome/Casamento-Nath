@@ -1,10 +1,9 @@
 import React from 'react';
 import { useWedding } from '../../context/WeddingContext';
-import { Heart, Lock } from 'lucide-react';
 import { MonogramCrest } from '../common/MonogramCrest';
 
 export const Footer: React.FC = () => {
-  const { wedding, setActiveView } = useWedding();
+  const { wedding } = useWedding();
 
   const year = wedding.weddingDate.split('-')[0] || '2026';
 
@@ -34,17 +33,6 @@ export const Footer: React.FC = () => {
           <span>{wedding.hashtag}</span>
           <span>•</span>
           <span>{year}</span>
-        </div>
-
-        {/* Discreet Admin Login Link for the Couple */}
-        <div className="pt-6 border-t border-[#E9DDCC]/40 flex items-center justify-center">
-          <button
-            onClick={() => setActiveView('admin')}
-            className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-[#657153] hover:text-[#2C3225] transition-colors py-1 px-3 rounded-full hover:bg-[#657153]/10 cursor-pointer"
-          >
-            <Lock size={12} />
-            <span>Acesso dos Noivos (Painel Administrativo)</span>
-          </button>
         </div>
 
       </div>
