@@ -66,7 +66,6 @@ export const EventDetailsSection: React.FC = () => {
               <Clock size={16} />
               <span>Cerimônia — {wedding.ceremonyVenue} às {formatHour(wedding.ceremonyTime)}</span>
             </span>
-            <span className="hidden sm:inline text-[#A98C5B]">•</span>
             <span>Recepção — {wedding.receptionVenue} às {formatHour(wedding.receptionTime)}</span>
           </div>
         </div>

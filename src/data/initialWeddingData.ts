@@ -113,8 +113,8 @@ export const INITIAL_WEDDING: WeddingData = {
   spouse1: 'Nathalie Albuquerque',
   spouse2: 'Igor Vasconcelos',
   monogram: 'N & I',
-  // Empty: the crest is drawn in SVG by MonogramCrest. Fill this to use an uploaded image instead.
-  monogramImage: '',
+  // The couple's engraved crest. Empty falls back to the SVG drawn by MonogramCrest.
+  monogramImage: '/brasao-ni.jpg',
   shortPhrase: 'Estamos preparando esse dia com muito carinho e queremos dividir esse momento com você em um dos cenários mais especiais de nossas vidas.',
   weddingDate: '2026-11-20',
   weddingTime: '16:00',
@@ -127,7 +127,7 @@ export const INITIAL_WEDDING: WeddingData = {
   ceremonyVenue: 'Capela São José',
   ceremonyAddress: 'Serrinha / Zona Rural, Guaramiranga - CE',
   ceremonyTime: '16:00',
-  ceremonyImage: '/capela-sao-jose.jpg',
+  ceremonyImage: '/fotos/13-capela-aquarela.jpg',
   ceremonyGoogleMapsUrl: 'https://maps.app.goo.gl/dYZ67yqbERTkgi6q9',
   receptionVenue: 'Solar Brasil Almeida',
   receptionAddress: 'Solar Brasil Almeida, Guaramiranga - CE (Nota: GPS pode indicar Mulungu, mas a entrada e território pertencem a Guaramiranga - CE)',
@@ -353,10 +353,10 @@ export const INITIAL_STORY: StoryMilestone[] = [
     title: 'Diante de Deus',
     description: 'Celebraremos nosso matrimônio diante de Deus na Capela de São José, em Guaramiranga, cenário da nossa primeira viagem de casal.',
     art: 'capela',
-    photoUrl: '/capela-sao-jose.jpg',
+    photoUrl: '/fotos/13-capela-aquarela.jpg',
     caption: 'Capela de São José, Guaramiranga',
     photos: [
-      { id: 'story-13-p1', url: '/capela-sao-jose.jpg', caption: 'Capela de São José, Guaramiranga', art: 'capela' },
+      { id: 'story-13-p1', url: '/fotos/13-capela-aquarela.jpg', caption: 'Capela de São José, Guaramiranga', art: 'capela' },
     ],
     order: 13,
   },
