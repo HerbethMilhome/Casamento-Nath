@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useWedding } from '../../context/WeddingContext';
 import { Menu, X, Share2 } from 'lucide-react';
 import { MonogramCrest } from '../common/MonogramCrest';
-import { formatDateLong } from '../../utils/format';
+import { formatDateNumeric } from '../../utils/format';
 
 interface NavbarProps {
   onOpenShare: () => void;
@@ -65,8 +65,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2C3225] group-hover:text-[#657153] transition-colors">
               {wedding.coupleNames}
             </span>
-            <span className="text-[9px] uppercase tracking-[0.2em] text-[#657153] font-medium hidden sm:inline">
-              {wedding.city} • {formatDateLong(wedding.weddingDate)}
+            <span className="text-[9px] uppercase tracking-[0.2em] text-[#657153] font-medium hidden sm:inline whitespace-nowrap">
+              {wedding.city} • {formatDateNumeric(wedding.weddingDate)}
             </span>
           </div>
         </a>

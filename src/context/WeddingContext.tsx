@@ -99,104 +99,68 @@ interface WeddingContextType {
   resetToInitialData: () => void;
 }
 
+/**
+ * Site content is NOT cached in the browser: it comes straight from
+ * `initialWeddingData.ts` on every load, so a deploy is visible immediately.
+ * Only the guestbook keeps a local copy, as an offline fallback for when the
+ * spreadsheet endpoint is not configured.
+ */
 const STORAGE_KEYS = {
-  WEDDING: 'casamento_data_v5',
-  STORY: 'casamento_story_v2',
-  GODPARENTS: 'casamento_godparents_v1',
-  GUESTS: 'casamento_guests_v2',
-  GIFTS: 'casamento_gifts_v2',
   MESSAGES: 'casamento_messages_v1',
-  PHOTOS: 'casamento_photos_v2',
-  USEFUL_INFO: 'casamento_useful_info_v2',
-  FAQS: 'casamento_faqs_v2',
 };
+
+/** Content keys from when the admin panel existed. Cleared so stale copies don't linger. */
+const LEGACY_STORAGE_KEYS = [
+  'casamento_data_v1', 'casamento_data_v2', 'casamento_data_v3', 'casamento_data_v4', 'casamento_data_v5',
+  'casamento_story_v1', 'casamento_story_v2', 'casamento_story_v3',
+  'casamento_godparents_v1',
+  'casamento_guests_v1', 'casamento_guests_v2',
+  'casamento_gifts_v1', 'casamento_gifts_v2',
+  'casamento_photos_v1', 'casamento_photos_v2',
+  'casamento_useful_info_v1', 'casamento_useful_info_v2',
+  'casamento_faqs_v1', 'casamento_faqs_v2',
+  'casamento_admin_auth_v1',
+];
 
 const WeddingContext = createContext<WeddingContextType | undefined>(undefined);
 
 export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [wedding, setWedding] = useState<WeddingData>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.WEDDING);
-    return saved ? JSON.parse(saved) : INITIAL_WEDDING;
-  });
+  const [wedding, setWedding] = useState<WeddingData>(INITIAL_WEDDING);
 
-  const [milestones, setMilestones] = useState<StoryMilestone[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.STORY);
-    return saved ? JSON.parse(saved) : INITIAL_STORY;
-  });
+  const [milestones, setMilestones] = useState<StoryMilestone[]>(INITIAL_STORY);
 
-  const [godparents, setGodparents] = useState<Godparent[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.GODPARENTS);
-    return saved ? JSON.parse(saved) : INITIAL_GODPARENTS;
-  });
+  const [godparents, setGodparents] = useState<Godparent[]>(INITIAL_GODPARENTS);
 
-  const [guests, setGuests] = useState<Guest[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.GUESTS);
-    return saved ? JSON.parse(saved) : INITIAL_GUESTS;
-  });
+  const [guests, setGuests] = useState<Guest[]>(INITIAL_GUESTS);
 
-  const [gifts, setGifts] = useState<Gift[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.GIFTS);
-    return saved ? JSON.parse(saved) : INITIAL_GIFTS;
-  });
+  const [gifts, setGifts] = useState<Gift[]>(INITIAL_GIFTS);
 
   const [messages, setMessages] = useState<GuestbookMessage[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.MESSAGES);
     return saved ? JSON.parse(saved) : INITIAL_MESSAGES;
   });
 
-  const [photos, setPhotos] = useState<GalleryPhoto[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.PHOTOS);
-    return saved ? JSON.parse(saved) : INITIAL_PHOTOS;
-  });
+  const [photos, setPhotos] = useState<GalleryPhoto[]>(INITIAL_PHOTOS);
 
-  const [usefulInfo, setUsefulInfo] = useState<UsefulInfoItem[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.USEFUL_INFO);
-    return saved ? JSON.parse(saved) : INITIAL_USEFUL_INFO;
-  });
+  const [usefulInfo, setUsefulInfo] = useState<UsefulInfoItem[]>(INITIAL_USEFUL_INFO);
 
-  const [faqs, setFaqs] = useState<FaqItem[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.FAQS);
-    return saved ? JSON.parse(saved) : INITIAL_FAQS;
-  });
+  const [faqs, setFaqs] = useState<FaqItem[]>(INITIAL_FAQS);
 
 
+
+  // Drops the content copies older versions of this site left behind.
+  useEffect(() => {
+    try {
+      LEGACY_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
+    } catch {
+      // Private mode or blocked storage — nothing to clean up.
+    }
+  }, []);
 
   // Persistence effects
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.WEDDING, JSON.stringify(wedding));
-  }, [wedding]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.STORY, JSON.stringify(milestones));
-  }, [milestones]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.GODPARENTS, JSON.stringify(godparents));
-  }, [godparents]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.GUESTS, JSON.stringify(guests));
-  }, [guests]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.GIFTS, JSON.stringify(gifts));
-  }, [gifts]);
-
-  useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.MESSAGES, JSON.stringify(messages));
   }, [messages]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.PHOTOS, JSON.stringify(photos));
-  }, [photos]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.USEFUL_INFO, JSON.stringify(usefulInfo));
-  }, [usefulInfo]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.FAQS, JSON.stringify(faqs));
-  }, [faqs]);
 
   // Recados aprovados vêm da planilha, não do localStorage — é o que permite um
   // convidado ver o recado que outro convidado deixou.

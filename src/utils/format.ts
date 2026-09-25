@@ -20,3 +20,10 @@ export const formatHour = (timeStr: string): string => {
   if (!hour) return timeStr || '';
   return minute && minute !== '00' ? `${parseInt(hour, 10)}h${minute}` : `${parseInt(hour, 10)}h`;
 };
+
+/** '2026-11-20' → '20.11.2026' (compact, for the navbar) */
+export const formatDateNumeric = (dateStr: string): string => {
+  const [year, month, day] = (dateStr || '').split('-');
+  if (!year || !month || !day) return '20.11.2026';
+  return `${day}.${month}.${year}`;
+};

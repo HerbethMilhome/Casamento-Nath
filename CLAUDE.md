@@ -18,8 +18,9 @@ There used to be a couple's admin panel (`components/admin/`, a floating toggle,
 `src/context/WeddingContext.tsx` is the data layer for everything except RSVP and guestbook messages (see below). It holds one `useState` per entity (wedding, milestones, godparents, guests, gifts, messages, photos, usefulInfo, faqs), mirrors each to `localStorage` through a dedicated `useEffect`, and exposes CRUD functions on the context value. Seed data lives in `src/data/initialWeddingData.ts`.
 
 Consequences to respect:
-- **Storage keys are versioned** (`casamento_guests_v1`, `casamento_photos_v2`, …) in the `STORAGE_KEYS` map. Changing the shape of a persisted entity requires bumping its key suffix, or returning users hydrate stale JSON into the new shape and crash.
-- State reads from `localStorage` in the `useState` initializer and is written back on every change. Adding an entity means adding all four pieces: state, its `STORAGE_KEYS` entry, its persistence `useEffect`, and its CRUD functions on the context type + value.
+- **Content is not cached in the browser.** Every entity is seeded straight from `initialWeddingData.ts` on each load, so editing the seed and deploying is enough — the change shows up for everyone immediately. Do not add `localStorage` persistence back for content: it used to exist for the admin panel and its only effect now is serving visitors a stale copy of a page you already fixed (which is exactly what it did). `LEGACY_STORAGE_KEYS` clears those old copies on mount.
+- The one exception is `STORAGE_KEYS.MESSAGES`, the guestbook's offline fallback for when `VITE_SHEETS_ENDPOINT` is unset. Approved messages still come from the spreadsheet and replace that state on mount.
+- The CRUD functions on the context (`updateMilestone`, `giftItem`, …) now only change React state for the current page view; nothing survives a reload. Nothing in `components/public/` depends on that surviving.
 - There is no authentication anywhere, and none can exist in this app: it is a static bundle with no backend. The guest gate in `PublicWeddingPage.tsx` still accepts `'123456'` as a universal bypass and is off by default (`isPasswordProtected: false`). Never put anything private behind it.
 - `INITIAL_GUESTS` is deliberately empty. RSVPs live in the spreadsheet, so no guest name, phone or e-mail is compiled into the public bundle — keep it that way.
 
