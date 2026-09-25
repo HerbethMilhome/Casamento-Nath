@@ -28,7 +28,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
     { label: 'O Grande Dia', href: '#o-grande-dia' },
     { label: 'Dress Code', href: '#dress-code' },
     { label: 'Presentes', href: '#presentes' },
-    { label: 'Galeria', href: '#galeria' },
     { label: 'RSVP', href: '#rsvp' },
     { label: 'Informações', href: '#informacoes' },
   ];

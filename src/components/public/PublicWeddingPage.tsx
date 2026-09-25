@@ -7,7 +7,6 @@ import { GodparentsSection } from './GodparentsSection';
 import { EventDetailsSection } from './EventDetailsSection';
 import { LocationMapSection } from './LocationMapSection';
 import { DressCodeSection } from './DressCodeSection';
-import { GallerySection } from './GallerySection';
 import { GiftsSection } from './GiftsSection';
 import { RsvpSection } from './RsvpSection';
 import { UsefulInfoSection } from './UsefulInfoSection';
@@ -106,22 +105,19 @@ export const PublicWeddingPage: React.FC = () => {
         {/* 6. Dress Code */}
         <DressCodeSection />
 
-        {/* 7. Galeria Nossos Momentos */}
-        <GallerySection />
-
-        {/* 8. Lista de Presentes */}
+        {/* 7. Lista de Presentes */}
         <GiftsSection />
 
-        {/* 9. RSVP Confirme sua Presença */}
+        {/* 8. RSVP Confirme sua Presença */}
         <RsvpSection />
 
-        {/* 10. Informações Úteis (Hospedagem, Salão, Aeroporto...) */}
+        {/* 9. Informações Úteis (Hospedagem, Salão, Aeroporto...) */}
         <UsefulInfoSection />
 
-        {/* 11. FAQ Perguntas Frequentes */}
+        {/* 10. FAQ Perguntas Frequentes */}
         <FaqSection />
 
-        {/* 12. Livro de Recados */}
+        {/* 11. Livro de Recados */}
         <GuestbookSection />
       </main>
 

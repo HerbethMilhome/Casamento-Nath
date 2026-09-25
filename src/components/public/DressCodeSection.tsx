@@ -91,30 +91,6 @@ export const DressCodeSection: React.FC = () => {
           )}
         </div>
 
-        {/* Visual Color Palette References */}
-        {wedding.dressCodeColors && wedding.dressCodeColors.length > 0 && (
-          <div className="text-center">
-            <span className="text-[10px] tracking-[0.2em] uppercase text-[#657153] font-semibold block mb-4">
-              Paleta de Tons Sugeridos & Inspiradores
-            </span>
-
-            <div className="flex items-center justify-center gap-4 sm:gap-6 flex-wrap">
-              {wedding.dressCodeColors.map((color, idx) => (
-                <div key={idx} className="flex flex-col items-center gap-2">
-                  <div
-                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-md border-2 border-white/90 transition-transform hover:scale-110"
-                    style={{ backgroundColor: color.hex }}
-                    title={color.name}
-                  />
-                  <span className="text-[11px] font-medium text-[#2C3225]">
-                    {color.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
       </div>
     </section>
   );

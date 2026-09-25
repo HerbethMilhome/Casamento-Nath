@@ -672,55 +672,8 @@ export const INITIAL_MESSAGES: GuestbookMessage[] = [
 ];
 
 export const INITIAL_PHOTOS: GalleryPhoto[] = [
-  {
-    id: 'p-capela',
-    url: '/capela-sao-jose.jpg',
-    caption: 'Capela São José — Onde celebraremos nosso sacramento e diremos o Sim',
-    category: 'pre_wedding',
-    order: 1,
-  },
-  {
-    id: 'p-1',
-    url: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop',
-    caption: 'Ensaio e cumplicidade dos noivos',
-    category: 'pre_wedding',
-    order: 2,
-  },
-  {
-    id: 'p-2',
-    url: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
-    caption: 'Luz acolhedora e clima serrano',
-    category: 'pre_wedding',
-    order: 3,
-  },
-  {
-    id: 'p-3',
-    url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop',
-    caption: 'Sorrisos que revelam o quanto somos felizes juntos',
-    category: 'pre_wedding',
-    order: 4,
-  },
-  {
-    id: 'p-4',
-    url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=1200&auto=format&fit=crop',
-    caption: 'Caminhos que nos uniram para sempre',
-    category: 'historico',
-    order: 5,
-  },
-  {
-    id: 'p-5',
-    url: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1200&auto=format&fit=crop',
-    caption: 'Detalhes e carinho em cada gesto',
-    category: 'pre_wedding',
-    order: 6,
-  },
-  {
-    id: 'p-6',
-    url: 'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=1200&auto=format&fit=crop',
-    caption: 'Celebrando o amor em todas as estações',
-    category: 'historico',
-    order: 7,
-  },
+  // Empty: the gallery section was removed from the page while there are no
+  // real photos. `GallerySection.tsx` is kept, unimported, ready to come back.
 ];
 
 export const INITIAL_USEFUL_INFO: UsefulInfoItem[] = [
