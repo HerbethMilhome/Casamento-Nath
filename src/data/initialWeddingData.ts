@@ -120,7 +120,7 @@ export const INITIAL_WEDDING: WeddingData = {
   weddingTime: '16:00',
   city: 'Guaramiranga',
   state: 'Ceará',
-  coverImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1600&auto=format&fit=crop',
+  coverImage: '/fotos/capa-casal.jpg',
   secondaryImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
   
   sameLocation: false,
@@ -144,7 +144,7 @@ export const INITIAL_WEDDING: WeddingData = {
   dressCodeDescription: 'Queremos que você esteja radiante, elegante e confortável para aproveitar o clima ameno da serra e dançar a noite inteira conosco.',
   dressCodeWomen: 'Vestidos midi ou longos em tecidos fluidos, macacões sofisticados e conjuntos de festa. Recomendamos salto bloco ou calçado confortável para o gramado e desníveis da serra, além de echarpe ou xale leve para a brisa noturna.',
   dressCodeMen: 'Calça de alfaiataria ou sarja refinada, camisa social de mangas longas e blazer ou costume alinhado. Gravata é opcional.',
-  dressCodeAvoid: 'Por gentileza, pedimos que evitem trajes nas cores branco, off-white, marfim e tons de lavanda e fúcsia (reservados exclusivamente para as madrinhas).',
+  dressCodeAvoid: 'Por gentileza, pedimos que evitem trajes nas cores branco, off-white, marfim e azul (reservados exclusivamente para as madrinhas).',
   dressCodeColors: [
     { name: 'Marfim', hex: '#F9F6EF' },
     { name: 'Nude', hex: '#E9DDCC' },
@@ -245,17 +245,6 @@ export const INITIAL_STORY: StoryMilestone[] = [
     order: 5,
   },
   {
-    id: 'story-6',
-    year: '2022',
-    dateLabel: '2022',
-    location: 'Aquiraz e Fortaleza, Ceará',
-    title: 'O mar de cada dia',
-    description: 'Passeios pelas praias de Aquiraz e Fortaleza, celebrando os pequenos momentos juntos.',
-    art: 'praia',
-    photos: [],
-    order: 6,
-  },
-  {
     id: 'story-7',
     year: '2023',
     dateLabel: '2023',
@@ -268,7 +257,7 @@ export const INITIAL_STORY: StoryMilestone[] = [
     photos: [
       { id: 'story-7-p1', url: '/fotos/07-aventuras-2023.jpg', caption: 'Punta del Este, Uruguai — o ano que atravessou fronteiras', art: 'rio' },
     ],
-    order: 7,
+    order: 6,
   },
   {
     id: 'story-8',
@@ -283,7 +272,7 @@ export const INITIAL_STORY: StoryMilestone[] = [
     photos: [
       { id: 'story-8-p1', url: '/fotos/08-chapada-diamantina.jpg', caption: 'Águas cristalinas da Chapada Diamantina', art: 'cachoeira' },
     ],
-    order: 8,
+    order: 7,
   },
   {
     id: 'story-9',
@@ -298,7 +287,7 @@ export const INITIAL_STORY: StoryMilestone[] = [
     photos: [
       { id: 'story-9-p1', url: '/fotos/09-amor-que-cuida.jpg', caption: 'O amor que cuida e fortalece', art: 'pedra' },
     ],
-    order: 9,
+    order: 8,
   },
   {
     id: 'story-10',
@@ -313,7 +302,7 @@ export const INITIAL_STORY: StoryMilestone[] = [
     photos: [
       { id: 'story-10-p1', url: '/fotos/10-gestacao.jpg', caption: 'A notícia que multiplicou o nosso amor', art: 'gestacao' },
     ],
-    order: 10,
+    order: 9,
   },
   {
     id: 'story-11',
@@ -328,7 +317,7 @@ export const INITIAL_STORY: StoryMilestone[] = [
     photos: [
       { id: 'story-11-p1', url: '/fotos/11-pedido.jpg', caption: 'O pedido de casamento, em Pedro II (PI)', art: 'alianca' },
     ],
-    order: 11,
+    order: 10,
   },
   {
     id: 'story-12',
@@ -343,7 +332,7 @@ export const INITIAL_STORY: StoryMilestone[] = [
     photos: [
       { id: 'story-12-p1', url: '/fotos/12-casamento-civil.jpg', caption: 'O nosso primeiro SIM, em Fortaleza', art: 'alianca' },
     ],
-    order: 12,
+    order: 11,
   },
   {
     id: 'story-13',
@@ -358,7 +347,7 @@ export const INITIAL_STORY: StoryMilestone[] = [
     photos: [
       { id: 'story-13-p1', url: '/fotos/13-capela-aquarela.jpg', caption: 'Capela de São José, Guaramiranga', art: 'capela' },
     ],
-    order: 13,
+    order: 12,
   },
 ];
 
