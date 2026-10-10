@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { useWedding } from '../../context/WeddingContext';
 import { Sparkles, Heart } from 'lucide-react';
 
+/** "Joana e Herbeth" -> "J & H"; "Pryscila" -> "P". */
+const iniciaisDe = (nome: string): string =>
+  nome
+    .split(/\s+/)
+    .filter((parte) => !['e', '&', 'de', 'da', 'do'].includes(parte.toLowerCase()))
+    .map((parte) => parte.charAt(0).toUpperCase())
+    .join(' & ');
+
 export const GodparentsSection: React.FC = () => {
   const { godparents } = useWedding();
   const [filter, setFilter] = useState<'todos' | 'noiva' | 'noivo'>('todos');
@@ -75,12 +83,24 @@ export const GodparentsSection: React.FC = () => {
             >
               <div>
                 {/* Photo with soft frosted overlay */}
-                <div className="relative h-64 sm:h-72 rounded-2xl overflow-hidden mb-5">
-                  <img
-                    src={gp.photoUrl}
-                    alt={gp.name}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                  />
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-5">
+                  {gp.photoUrl ? (
+                    <img
+                      src={gp.photoUrl}
+                      alt={gp.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-[#F9F6EF] to-[#F3EDE1] border border-[#E9DDCC]">
+                      <span className="font-cormorant text-4xl sm:text-5xl text-[#A98C5B]">
+                        {iniciaisDe(gp.name)}
+                      </span>
+                      <span className="text-[9px] tracking-[0.2em] uppercase text-[#657153]/70">
+                        Foto em breve
+                      </span>
+                    </div>
+                  )}
                   
                   {/* Badge */}
                   <div className="absolute top-3 right-3 bg-white/70 backdrop-blur-md px-3 py-1 rounded-full text-[10px] tracking-wider uppercase text-[#657153] font-semibold border border-white/40">
