@@ -440,7 +440,7 @@ export const INITIAL_GODPARENTS: Godparent[] = [
     name: 'Mateus',
     type: 'individual',
     role: 'Padrinho',
-    side: 'noiva',
+    side: 'noivo',
     photoUrl: '/padrinhos/mateus.jpg',
     bio: 'Você faz parte da minha história desde a infância e, ao longo de tantos anos de convivência, tornou-se muito mais do que um amigo: é um verdadeiro irmão e parceiro de todas as horas. Juntos, vivemos muitos momentos, histórias e desafios, e sua presença sempre foi especial na minha caminhada. Eu sei que você me dá um trabalho danado, mas, por trás de toda essa bagunça, existe um grande ser humano, dono de um coração enorme e cheio de bondade. Tenho muita gratidão por nossa amizade e por tudo o que já vivemos juntos. Ter você como meu padrinho é uma alegria imensa e uma forma de reconhecer a importância que você tem na minha vida. Que possamos continuar compartilhando muitos momentos e celebrando juntos os próximos capítulos dessa história. Obrigado por tudo.',
     order: 7,
