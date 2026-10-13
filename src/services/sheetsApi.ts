@@ -119,9 +119,16 @@ function gerarToken(): string {
  *
  * Tenta algumas vezes porque a gravação e a consulta são requisições
  * independentes — a segunda pode chegar antes de a primeira terminar.
+ *
+ * O orçamento é generoso de propósito: quando o Apps Script está frio, a
+ * primeira execução do dia leva vários segundos para acordar. Com uma janela
+ * curta o site desistia e acusava falha de um RSVP que a planilha gravava
+ * segundos depois — o pior erro possível aqui, porque manda o convidado
+ * embora achando que não confirmou. No caminho normal a primeira tentativa
+ * já responde, então ninguém espera esse tempo todo.
  */
 async function confirmarGravacao(token: string): Promise<void> {
-  const esperas = [700, 1200, 1800, 2500];
+  const esperas = [600, 1000, 1500, 2200, 3000, 4000, 5000, 6000];
 
   for (const espera of esperas) {
     await esperar(espera);
