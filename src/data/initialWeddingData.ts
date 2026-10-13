@@ -442,8 +442,19 @@ export const INITIAL_GODPARENTS: Godparent[] = [
     role: 'Padrinho',
     side: 'noivo',
     photoUrl: '/padrinhos/mateus.jpg',
-    bio: 'Você faz parte da minha história desde a infância e, ao longo de tantos anos de convivência, tornou-se muito mais do que um amigo: é um verdadeiro irmão e parceiro de todas as horas. Juntos, vivemos muitos momentos, histórias e desafios, e sua presença sempre foi especial na minha caminhada. Eu sei que você me dá um trabalho danado, mas, por trás de toda essa bagunça, existe um grande ser humano, dono de um coração enorme e cheio de bondade. Tenho muita gratidão por nossa amizade e por tudo o que já vivemos juntos. Ter você como meu padrinho é uma alegria imensa e uma forma de reconhecer a importância que você tem na minha vida. Que possamos continuar compartilhando muitos momentos e celebrando juntos os próximos capítulos dessa história. Obrigado por tudo.',
+    bio: 'Você faz parte da minha história desde a infância e, ao longo de tantos anos de convivência, tornou-se muito mais do que um amigo: é um verdadeiro irmão e parceiro de todas as horas. Juntos, vivemos muitos momentos, histórias e desafios, e sua presença sempre foi especial na minha caminhada.\n\nEu sei que você me dá um trabalho danado, mas, por trás de toda essa bagunça, existe um grande ser humano, dono de um coração enorme e cheio de bondade. Tenho muita gratidão por nossa amizade e por tudo o que já vivemos juntos.\n\nTer você como meu padrinho é uma alegria imensa e uma forma de reconhecer a importância que você tem na minha vida. Que possamos continuar compartilhando muitos momentos e celebrando juntos os próximos capítulos dessa história. Obrigado por tudo.',
     order: 7,
+  },
+  {
+    id: 'gp-8',
+    name: 'Maria Karla e Bruno',
+    type: 'casal',
+    partnerName: 'Bruno',
+    role: 'Padrinhos (Casal)',
+    side: 'noivo',
+    photoUrl: '/padrinhos/maria-karla-e-bruno.jpg',
+    bio: 'Meu irmão amado, meu companheiro de todas as horas, aquele que está ao meu lado desde o primeiro dia da minha vida. É difícil encontrar palavras para descrever o amor que sinto por você. Um coração gigante, um ser humano extraordinário, que sempre esteve por perto, presente em cada fase da minha história. Ter você como irmão é um dos maiores presentes que Deus me deu, e poder ter você ao meu lado em um dos dias mais importantes da minha vida torna tudo ainda mais especial.\n\nMaria Karla, minha querida cunhada, uma mulher forte, honrada, de família e de um coração enorme. Alguém com quem sabemos que podemos contar, que está sempre disposta a nos ajudar, aconselhar e acolher. Sua presença em nossas vidas é muito especial, e sou grato a Deus pela família que construímos juntos.\n\nEscolher vocês como nossos padrinhos é muito mais do que um convite: é reconhecer a importância que vocês têm em nossas vidas e o amor que sentimos por vocês. Queremos vocês pertinho de nós não apenas nesse dia tão especial, mas em toda a caminhada que estamos começando. Que Deus continue abençoando a união de vocês e que a nossa família permaneça sempre unida pelo amor, pela fé e pela cumplicidade.\n\nAmamos vocês! É uma honra imensa ter vocês como nossos padrinhos.',
+    order: 8,
   },
 ];
 
