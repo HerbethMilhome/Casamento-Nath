@@ -3,12 +3,22 @@ import { useWedding } from '../../context/WeddingContext';
 import { Godparent } from '../../types';
 import { Sparkles, X } from 'lucide-react';
 
-/** "Joana e Herbeth" -> "J & H"; "Pryscila" -> "P". */
+/** Words that come before a name and shouldn't become an initial. */
+const TRATAMENTOS = ['tia', 'tio', 'dona', 'seu', 'dr', 'dr.', 'dra', 'dra.', 'padre', 'pe.'];
+
+/**
+ * One initial per person, taken from their first real name:
+ * "Joana e Herbeth" -> "J & H", "Tia Inês e Tio Sérgio" -> "I & S",
+ * "Maria Karla e Bruno" -> "M & B", "Pryscila" -> "P".
+ */
 const iniciaisDe = (nome: string): string =>
   nome
-    .split(/\s+/)
-    .filter((parte) => !['e', '&', 'de', 'da', 'do'].includes(parte.toLowerCase()))
-    .map((parte) => parte.charAt(0).toUpperCase())
+    .split(/\s+(?:e|&)\s+/i)
+    .map((pessoa) => {
+      const partes = pessoa.trim().split(/\s+/);
+      return partes.find((p) => !TRATAMENTOS.includes(p.toLowerCase())) ?? partes[0];
+    })
+    .map((primeiroNome) => primeiroNome.charAt(0).toUpperCase())
     .join(' & ');
 
 const ladoDe = (side: Godparent['side']): string =>

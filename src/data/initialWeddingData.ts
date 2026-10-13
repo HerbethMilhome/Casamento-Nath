@@ -456,6 +456,17 @@ export const INITIAL_GODPARENTS: Godparent[] = [
     bio: 'Meu irmão amado, meu companheiro de todas as horas, aquele que está ao meu lado desde o primeiro dia da minha vida. É difícil encontrar palavras para descrever o amor que sinto por você. Um coração gigante, um ser humano extraordinário, que sempre esteve por perto, presente em cada fase da minha história. Ter você como irmão é um dos maiores presentes que Deus me deu, e poder ter você ao meu lado em um dos dias mais importantes da minha vida torna tudo ainda mais especial.\n\nMaria Karla, minha querida cunhada, uma mulher forte, honrada, de família e de um coração enorme. Alguém com quem sabemos que podemos contar, que está sempre disposta a nos ajudar, aconselhar e acolher. Sua presença em nossas vidas é muito especial, e sou grato a Deus pela família que construímos juntos.\n\nEscolher vocês como nossos padrinhos é muito mais do que um convite: é reconhecer a importância que vocês têm em nossas vidas e o amor que sentimos por vocês. Queremos vocês pertinho de nós não apenas nesse dia tão especial, mas em toda a caminhada que estamos começando. Que Deus continue abençoando a união de vocês e que a nossa família permaneça sempre unida pelo amor, pela fé e pela cumplicidade.\n\nAmamos vocês! É uma honra imensa ter vocês como nossos padrinhos.',
     order: 8,
   },
+  {
+    id: 'gp-9',
+    name: 'Tia Inês e Tio Sérgio',
+    type: 'casal',
+    partnerName: 'Tio Sérgio',
+    role: 'Padrinhos (Casal)',
+    side: 'noivo',
+    photoUrl: '',
+    bio: 'Tia Inês, minha querida tia e madrinha de batismo. Exemplo de mulher, profissional e ser humano. Sempre solícita, proativa e agregadora, é uma mulher de fibra, verdadeira líder e pilar da nossa família: cristã, batalhadora, honesta e honrada. Desde a minha mais tenra infância, você sempre esteve presente em cada momento, guiando, ajudando e cuidando com um amor sem tamanho.\n\nTio Sérgio, nosso “caba bom”, sempre trazendo alegria com seu jeito brincalhão, profissional exemplar, um paizão e um amigo leal para todas as horas.\n\nTer vocês ao nosso lado abençoando o nosso altar é uma alegria e uma honra imensa. Obrigado por serem exemplos de vida e por caminharem com a gente desde sempre!\n\nNão poderíamos escolher pessoas melhores para estar ao nosso lado nesse dia tão especial. Amo vocês.',
+    order: 9,
+  },
 ];
 
 export const INITIAL_GUESTS: Guest[] = [
