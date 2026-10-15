@@ -71,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden xl:flex items-center gap-7 text-[11px] font-medium tracking-[0.14em] uppercase text-[#3F463A]">
+        <nav className="hidden xl:flex items-center gap-5 2xl:gap-7 text-[11px] font-medium tracking-[0.14em] uppercase text-[#3F463A]">
           {navLinks.map((link) => (
             <button
               key={link.href}
@@ -98,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
           <button
             id="nav-rsvp-btn"
             onClick={() => scrollToSection('#rsvp')}
-            className="bg-[#657153] hover:bg-[#4E5941] text-white text-[11px] font-medium tracking-[0.15em] uppercase px-5 py-2 rounded-full transition-all shadow-sm hover:shadow cursor-pointer"
+            className="whitespace-nowrap bg-[#657153] hover:bg-[#4E5941] text-white text-[11px] font-medium tracking-[0.15em] uppercase px-5 py-2 rounded-full transition-all shadow-sm hover:shadow cursor-pointer"
           >
             Confirmar Presença
           </button>
