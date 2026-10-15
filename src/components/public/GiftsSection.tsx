@@ -1,26 +1,31 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useWedding } from '../../context/WeddingContext';
 import { Gift, GiftCategory } from '../../types';
-import { Check, Copy, Heart, Info, QrCode, Search, X } from 'lucide-react';
+import { Check, Copy, Heart, Info, QrCode, Search, Send, X } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { GiftIllustration } from '../common/GiftIllustration';
 import { buildPixPayload } from '../../utils/pix';
+import { enviarRecado, sheetsConfigurado } from '../../services/sheetsApi';
 
 const CATEGORIAS: GiftCategory[] = [
+  'Especiais dos noivos',
   'Eletrodomésticos',
   'Cama, mesa e banho',
   'Cozinha',
   'Organização e utilidades',
 ];
 
-type Faixa = 'todas' | 'ate150' | '150a300' | 'acima300';
+type Faixa = 'todas' | 'ate200' | '200a400' | 'acima400';
 
 const FAIXAS: { id: Faixa; rotulo: string; cabe: (preco: number) => boolean }[] = [
   { id: 'todas', rotulo: 'Todos os valores', cabe: () => true },
-  { id: 'ate150', rotulo: 'Até R$ 150', cabe: (p) => p <= 150 },
-  { id: '150a300', rotulo: 'R$ 151 a R$ 300', cabe: (p) => p > 150 && p <= 300 },
-  { id: 'acima300', rotulo: 'Acima de R$ 300', cabe: (p) => p > 300 },
+  { id: 'ate200', rotulo: 'Até R$ 200', cabe: (p) => p <= 200 },
+  { id: '200a400', rotulo: 'R$ 201 a R$ 400', cabe: (p) => p > 200 && p <= 400 },
+  { id: 'acima400', rotulo: 'Acima de R$ 400', cabe: (p) => p > 400 },
 ];
+
+/** The couple's own gifts open the list; the rest follow by price. */
+const ESPECIAL: GiftCategory = 'Especiais dos noivos';
 
 const reais = (valor: number): string =>
   valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -62,6 +67,10 @@ export const GiftsSection: React.FC = () => {
   const [busca, setBusca] = useState('');
   const [escolha, setEscolha] = useState<Escolha | null>(null);
   const [copiou, setCopiou] = useState<'chave' | 'codigo' | null>(null);
+  const [nomeRecado, setNomeRecado] = useState('');
+  const [textoRecado, setTextoRecado] = useState('');
+  const [statusRecado, setStatusRecado] = useState<'idle' | 'enviando' | 'ok' | 'erro'>('idle');
+  const recadoDisponivel = sheetsConfigurado();
 
   const fecharRef = useRef<HTMLButtonElement | null>(null);
   const ultimoFocoRef = useRef<HTMLElement | null>(null);
@@ -73,7 +82,12 @@ export const GiftsSection: React.FC = () => {
       .filter((g) => categoria === 'Todas' || g.category === categoria)
       .filter((g) => faixaAtual.cabe(g.price))
       .filter((g) => !termo || normalizar(g.title).includes(termo))
-      .sort((a, b) => a.price - b.price || a.order - b.order);
+      .sort(
+        (a, b) =>
+          Number(b.category === ESPECIAL) - Number(a.category === ESPECIAL) ||
+          a.price - b.price ||
+          a.order - b.order,
+      );
   }, [gifts, categoria, faixa, busca]);
 
   const filtrando = categoria !== 'Todas' || faixa !== 'todas' || busca.trim() !== '';
@@ -103,6 +117,8 @@ export const GiftsSection: React.FC = () => {
   const abrir = (nova: Escolha) => {
     ultimoFocoRef.current = document.activeElement as HTMLElement | null;
     setCopiou(null);
+    setStatusRecado('idle');
+    setTextoRecado('');
     setEscolha(nova);
   };
 
@@ -119,6 +135,28 @@ export const GiftsSection: React.FC = () => {
     } catch {
       // Clipboard blocked (older browser / insecure context): the text stays
       // visible on screen for the guest to copy by hand.
+    }
+  };
+
+  /**
+   * Sends the guest's name and note to the couple's spreadsheet, on the same
+   * channel as the guestbook. It reports only that the NOTE arrived — the PIX
+   * happens in the guest's bank and the site never claims it was paid.
+   */
+  const enviarRecadoPresente = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!escolha || !nomeRecado.trim() || statusRecado === 'enviando') return;
+    const presente =
+      escolha.tipo === 'presente'
+        ? `${escolha.presente.title} (${reais(escolha.presente.price)})`
+        : 'Contribuição com carinho';
+    const texto = `[Presente: ${presente}]${textoRecado.trim() ? ' ' + textoRecado.trim() : ''}`;
+    setStatusRecado('enviando');
+    try {
+      await enviarRecado(nomeRecado.trim(), texto);
+      setStatusRecado('ok');
+    } catch {
+      setStatusRecado('erro');
     }
   };
 
@@ -151,21 +189,30 @@ export const GiftsSection: React.FC = () => {
           <span className="text-[10px] tracking-[0.25em] uppercase font-semibold block mb-2" style={{ color: gold }}>
             Mimo & Carinho
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl text-[#2C3225] font-normal mb-3">
-            Nossa Lista de Presentes
+          <h2 className="font-serif text-3xl sm:text-5xl text-[#2C3225] font-normal mb-2">
+            Lista de Presentes dos Noivos
           </h2>
+          <p className="font-script text-2xl sm:text-4xl leading-snug mb-3" style={{ color: olive }}>
+            Porque o Amor é Lindo, mas o Haras Tem Despesas!
+          </p>
           <Lirio cor={olive} ouro={gold} />
 
           <blockquote className="mt-6 font-cormorant text-lg sm:text-xl text-[#55594A] leading-relaxed space-y-3">
-            <p>“Celebrar esse momento ao lado de pessoas tão especiais já é o nosso maior presente!</p>
+            <p>“Queridos amigos e familiares, chegou a hora de nos ajudar a começar nossa vida a dois! 💗</p>
             <p>
-              Para aqueles que desejarem nos presentear, preparamos uma lista simbólica com itens que
-              representam o carinho e a construção do nosso novo lar.
+              Como vocês já sabem, nosso casamento reúne romance, natureza, cavalos, vaquejada e muitos planos
+              para o futuro. Por isso, resolvemos inovar na lista de presentes!
             </p>
-            <p>Escolham com o coração! Cada gesto de carinho fará parte da nossa história.</p>
+            <p>
+              Aqui, vocês poderão contribuir com itens essenciais para a felicidade conjugal, a manutenção dos
+              animais, os caprichos da noiva, as aventuras do noivo e os mimos do nosso pequeno Petrus.
+            </p>
+            <p>
+              Escolham o presente que mais combina com vocês e participem dessa história com muito amor e bom
+              humor. Não se preocupem: aceitamos contribuições em dinheiro, porque amor de verdade também ajuda a
+              pagar a ração dos cavalos!”
+            </p>
           </blockquote>
-          <p className="mt-4 font-cormorant italic text-[#55594A]">Com amor,</p>
-          <p className="font-script text-3xl" style={{ color: olive }}>Nathalie & Igor”</p>
         </header>
 
         {/* 3. Aviso explicativo */}
@@ -267,8 +314,8 @@ export const GiftsSection: React.FC = () => {
           </div>
 
           <p className="text-center text-xs text-[#7C7D6C]" aria-live="polite">
-            {visiveis.length === 1 ? '1 presente' : `${visiveis.length} presentes`} · do menor para o maior valor ·
-            valores sugeridos, sem nenhuma obrigação
+            {visiveis.length === 1 ? '1 presente' : `${visiveis.length} presentes`} · os especiais dos noivos primeiro,
+            depois do menor para o maior valor · valores sugeridos, sem nenhuma obrigação
           </p>
         </div>
 
@@ -289,7 +336,12 @@ export const GiftsSection: React.FC = () => {
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-lg text-[#2C3225] leading-snug mb-3">{presente.title}</h3>
+                  <h3 className="font-serif text-lg text-[#2C3225] leading-snug mb-2">{presente.title}</h3>
+                  {presente.description && (
+                    <p className="text-[13px] text-[#55594A] leading-relaxed italic mb-3 line-clamp-4">
+                      “{presente.description}”
+                    </p>
+                  )}
 
                   <div className="mt-auto pt-3 border-t border-[#E9DDCC]">
                     <span className="block text-[10px] uppercase tracking-widest font-semibold" style={{ color: gold }}>
@@ -332,13 +384,14 @@ export const GiftsSection: React.FC = () => {
         {/* 8. Rodapé */}
         <footer className="mt-16 text-center max-w-xl mx-auto">
           <Lirio cor={olive} ouro={gold} />
-          <p className="mt-4 font-cormorant text-lg sm:text-xl text-[#55594A] leading-relaxed">
-            “Cada presente representa um gesto de amor e carinho que levaremos conosco nessa nova etapa.
-            Obrigada por fazer parte da nossa história!”
+          <p className="mt-4 font-script text-3xl" style={{ color: olive }}>Igor & Nathalie</p>
+          <p className="text-[11px] tracking-[0.2em] uppercase text-[#7C7D6C] mt-1">20.11.2026 💗</p>
+          <p className="mt-5 font-cormorant italic text-lg sm:text-xl text-[#55594A] leading-relaxed">
+            Na alegria, na tristeza, na saúde, na doença e, principalmente, quando acabar a ração dos cavalos!
           </p>
-          <p className="mt-3 font-script text-3xl" style={{ color: olive }}>Nathalie & Igor</p>
-          <p className="text-[11px] tracking-[0.2em] uppercase text-[#7C7D6C] mt-1">
-            20 de novembro de 2026 · Guaramiranga — Ceará
+          <p className="mt-3 font-cormorant text-lg text-[#55594A] leading-relaxed">
+            Obrigado por fazerem parte da nossa história. Cada gesto de carinho tornará esse novo capítulo ainda
+            mais especial.
           </p>
         </footer>
       </div>
@@ -368,6 +421,11 @@ export const GiftsSection: React.FC = () => {
                 <h3 id="pix-titulo" className="font-serif text-xl sm:text-2xl text-[#2C3225] mt-0.5">
                   {escolha.tipo === 'presente' ? escolha.presente.title : 'Contribuição livre'}
                 </h3>
+                {escolha.tipo === 'presente' && escolha.presente.description && (
+                  <p className="mt-2 font-cormorant italic text-base text-[#55594A] leading-snug">
+                    “{escolha.presente.description}”
+                  </p>
+                )}
                 <span className="block text-[10px] uppercase tracking-widest text-[#7C7D6C] mt-3">
                   {escolha.tipo === 'presente' ? 'Valor sugerido' : 'Valor'}
                 </span>
@@ -447,6 +505,62 @@ export const GiftsSection: React.FC = () => {
                 “O presente é simbólico e o pagamento é realizado diretamente aos noivos. Não existe compra, frete
                 ou entrega de produtos.”
               </p>
+
+              {recadoDisponivel && (
+                <div className="mt-6 pt-5 border-t border-[#E9DDCC]">
+                  {statusRecado === 'ok' ? (
+                    <div className="rounded-2xl bg-[#657153]/10 border border-[#657153]/20 p-4 text-center" role="status">
+                      <Heart size={20} className="mx-auto mb-1" style={{ color: olive, fill: `${olive}33` }} />
+                      <p className="font-serif text-lg text-[#2C3225]">Recado enviado!</p>
+                      <p className="text-sm text-[#55594A] mt-1">
+                        Os noivos vão receber seu nome e sua mensagem junto com o presente escolhido. Muito obrigado
+                        pelo carinho!
+                      </p>
+                    </div>
+                  ) : (
+                    <form onSubmit={enviarRecadoPresente} className="space-y-3">
+                      <div>
+                        <h4 className="font-serif text-lg text-[#2C3225]">Deixe seu nome e um recado (opcional)</h4>
+                        <p className="text-xs text-[#7C7D6C] mt-0.5">
+                          Assim os noivos sabem de quem veio o carinho. O PIX continua sendo feito no app do seu banco.
+                        </p>
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        value={nomeRecado}
+                        onChange={(e) => setNomeRecado(e.target.value)}
+                        placeholder="Seu nome"
+                        aria-label="Seu nome"
+                        className="w-full px-4 py-3 rounded-xl bg-white/90 border border-[#E9DDCC] text-sm focus:outline-none focus:ring-2 focus:ring-[#A98C5B]/40"
+                      />
+                      <textarea
+                        rows={3}
+                        value={textoRecado}
+                        onChange={(e) => setTextoRecado(e.target.value)}
+                        placeholder="Uma mensagem carinhosa para os noivos..."
+                        aria-label="Mensagem para os noivos"
+                        className="w-full px-4 py-3 rounded-xl bg-white/90 border border-[#E9DDCC] text-sm focus:outline-none focus:ring-2 focus:ring-[#A98C5B]/40"
+                      />
+                      {statusRecado === 'erro' && (
+                        <p className="text-xs text-[#9B3B2E]" role="alert">
+                          Não conseguimos enviar seu recado agora. Seu presente não é afetado — se quiser, tente de novo
+                          em instantes.
+                        </p>
+                      )}
+                      <button
+                        type="submit"
+                        disabled={statusRecado === 'enviando'}
+                        className="w-full flex items-center justify-center gap-2 text-white text-xs tracking-wider uppercase font-semibold py-3.5 rounded-full transition-colors cursor-pointer disabled:opacity-60 focus-gold"
+                        style={{ backgroundColor: gold }}
+                      >
+                        <Send size={14} />
+                        {statusRecado === 'enviando' ? 'Enviando...' : 'Enviar meu recado aos noivos'}
+                      </button>
+                    </form>
+                  )}
+                </div>
+              )}
 
               <button
                 type="button"

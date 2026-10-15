@@ -48,6 +48,8 @@ These two are the exception and the reason `src/services/sheetsApi.ts` exists: a
 
 Every gift is `type: 'symbolic'` and paid by PIX — there are no store links. `Gift.imageUrl` is optional now: when it is empty, `GiftIllustration` draws the line art named by `Gift.art` (a `GiftArtMotif`), so no stock photo implies a real product.
 
+The gift dialog has an optional "name + note" form that posts through `enviarRecado` — the same channel as the guestbook — with the text prefixed `[Presente: <item> (<valor>)]`. Those rows land unapproved in the guestbook tab; approving one puts it on the public wall. The form reports only that the note arrived, never that a PIX was paid, and it is hidden when `sheetsConfigurado()` is false.
+
 `src/utils/pix.ts` builds the static BR Code (EMV/copia-e-cola) rendered as a QR by `qrcode.react`, with the gift's price already in field 54. `crc16` there is CRC16/CCITT-FALSE — if you touch the builder, check it still returns `29B1` for `"123456789"`, and remember banks reject accents in fields 59/60 (that is what `sanitize` is for).
 
 `express`, `dotenv`, and `@google/genai` are installed but imported nowhere; they are placeholders for a planned backend. Keep them.

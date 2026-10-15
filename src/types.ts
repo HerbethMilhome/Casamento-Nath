@@ -83,6 +83,7 @@ export interface Guest {
 }
 
 export type GiftCategory =
+  | 'Especiais dos noivos'
   | 'Eletrodomésticos'
   | 'Cama, mesa e banho'
   | 'Cozinha'
@@ -125,6 +126,14 @@ export type GiftArtMotif =
   | 'passadeira'
   | 'ventilador'
   | 'gavetas'
+  // Especiais dos noivos
+  | 'racao'
+  | 'vaquejada'
+  | 'sela'
+  | 'patinho'
+  | 'montanhas'
+  | 'bebe'
+  | 'rodizio'
   // Contribuição livre
   | 'coracao';
 

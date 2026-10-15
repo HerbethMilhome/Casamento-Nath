@@ -41,6 +41,13 @@ const MOTIF_LABEL: Record<GiftArtMotif, string> = {
   passadeira: 'Ilustração de uma passadeira a vapor',
   ventilador: 'Ilustração de um ventilador de coluna',
   gavetas: 'Ilustração de organizadores de gaveta',
+  racao: 'Ilustração de um balde de ração e uma ferradura',
+  vaquejada: 'Ilustração de uma senha de vaquejada com ferradura',
+  sela: 'Ilustração de uma sela de couro',
+  patinho: 'Ilustração de um patinho',
+  montanhas: 'Ilustração de montanhas com um coração',
+  bebe: 'Ilustração de um macacão de bebê',
+  rodizio: 'Ilustração de um espeto de churrasco e uma fatia de pizza',
   coracao: 'Ilustração de um coração',
 };
 
@@ -397,6 +404,89 @@ export const GiftIllustration: React.FC<GiftIllustrationProps> = ({
           <rect x="76" y="70" width="168" height="80" rx="8" {...ink} />
           <path d="M140 70 v80 M76 110 h64 M190 70 v80" {...ink} />
           <path d="M92 90 h32 M96 130 h24 M156 96 q18 -10 18 10 M204 92 h26 M204 120 h26" {...gold} />
+        </>
+      )}
+
+      {/* ------------------------------------------- Especiais dos noivos */}
+      {motif === 'racao' && (
+        <>
+          <path d="M104 78 h84 l-10 74 h-64 Z" {...soft} />
+          <path d="M104 78 h84 l-10 74 h-64 Z" {...ink} />
+          <path d="M98 78 h96" {...ink} />
+          <g fill={GOLD} opacity="0.55" stroke="none">
+            <circle cx="126" cy="68" r="6" />
+            <circle cx="146" cy="60" r="6" />
+            <circle cx="166" cy="68" r="6" />
+          </g>
+          <path d="M214 142 q-16 -36 0 -54 q14 -18 30 -18 q16 0 30 18 q16 18 0 54" fill="none" stroke={GOLD} strokeWidth="6" strokeLinecap="round" opacity="0.8" />
+        </>
+      )}
+
+      {motif === 'vaquejada' && (
+        <>
+          <path d="M80 70 h160 v20 a12 12 0 0 0 0 24 v20 h-160 v-20 a12 12 0 0 0 0 -24 Z" {...soft} />
+          <path d="M80 70 h160 v20 a12 12 0 0 0 0 24 v20 h-160 v-20 a12 12 0 0 0 0 -24 Z" {...ink} />
+          <path d="M180 74 v56" {...ink} strokeDasharray="4 6" />
+          <text x="130" y="112" textAnchor="middle" fill={OLIVE_DEEP} opacity="0.8" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 600 }} fontSize="30">Nº 20</text>
+          <path d="M200 120 q-10 -22 0 -34 q8 -10 10 -10 q2 0 10 10 q10 12 0 34" fill="none" stroke={GOLD} strokeWidth="4" strokeLinecap="round" opacity="0.85" />
+        </>
+      )}
+
+      {motif === 'sela' && (
+        <>
+          <path d="M84 104 q24 -44 76 -36 q30 4 44 -10 q14 -8 22 6 q8 14 -12 22 q-16 8 -16 30 q-4 30 -58 30 q-44 0 -56 -42 Z" {...soft} />
+          <path d="M84 104 q24 -44 76 -36 q30 4 44 -10 q14 -8 22 6 q8 14 -12 22 q-16 8 -16 30 q-4 30 -58 30 q-44 0 -56 -42 Z" {...ink} />
+          <path d="M150 104 v40 M150 144 q-10 0 -10 10 h20 q0 -10 -10 -10" {...ink} />
+          <path d="M100 110 q48 18 96 -6" {...gold} />
+          <path d="M112 90 q36 -14 72 -6" {...gold} opacity="0.5" />
+        </>
+      )}
+
+      {motif === 'patinho' && (
+        <>
+          <path d="M96 128 q0 -36 44 -36 h20 q-8 -10 -8 -24 q0 -24 24 -24 q22 0 24 22 l20 6 l-20 8 q-2 10 -10 16 q26 10 26 32 q0 26 -50 26 h-30 q-40 0 -40 -26 Z" {...soft} />
+          <path d="M96 128 q0 -36 44 -36 h20 q-8 -10 -8 -24 q0 -24 24 -24 q22 0 24 22 l20 6 l-20 8 q-2 10 -10 16 q26 10 26 32 q0 26 -50 26 h-30 q-40 0 -40 -26 Z" {...ink} />
+          <circle cx="182" cy="62" r="3.5" fill={OLIVE_DEEP} stroke="none" opacity="0.85" />
+          <path d="M210 66 l20 6 l-20 8 Z" fill={GOLD} opacity="0.7" stroke="none" />
+          <path d="M124 124 q20 14 44 0" {...gold} />
+          <path d="M70 162 q30 -10 60 0 q30 10 60 0 q30 -10 60 0" stroke="#8A9468" strokeWidth="2.5" fill="none" opacity="0.6" />
+        </>
+      )}
+
+      {motif === 'montanhas' && (
+        <>
+          <path d="M56 160 L118 76 L160 128 L206 64 L268 160 Z" {...soft} />
+          <path d="M56 160 L118 76 L160 128 L206 64 L268 160" {...ink} />
+          <path d="M104 96 l14 -20 l12 16 M194 82 l12 -18 l12 16" stroke={IVORY} strokeWidth="5" fill="none" strokeLinecap="round" />
+          <path d="M160 58 q-14 -12 -14 -20 q0 -8 7 -8 q5 0 7 5 q2 -5 7 -5 q7 0 7 8 q0 8 -14 20 Z" fill={GOLD} opacity="0.8" stroke="none" />
+          <path d="M82 150 q40 -10 80 0 q40 10 80 0" {...gold} opacity="0.5" />
+        </>
+      )}
+
+      {motif === 'bebe' && (
+        <>
+          <path d="M126 50 q34 18 68 0 l18 16 l-16 20 l-8 -6 v64 q-34 12 -56 0 v-64 l-8 6 l-16 -20 Z" {...soft} />
+          <path d="M126 50 q34 18 68 0 l18 16 l-16 20 l-8 -6 v64 q-34 12 -56 0 v-64 l-8 6 l-16 -20 Z" {...ink} />
+          <path d="M160 132 v12" {...ink} />
+          <path d="M150 96 q-6 -8 0 -14 q6 -4 10 2 q4 -6 10 -2 q6 6 0 14 l-10 10 Z" fill={GOLD} opacity="0.6" stroke="none" />
+          <circle cx="240" cy="120" r="16" {...ink} />
+          <path d="M240 104 q14 -10 22 0 q-8 12 -22 8" {...ink} />
+        </>
+      )}
+
+      {motif === 'rodizio' && (
+        <>
+          <path d="M70 70 l120 60" {...ink} />
+          <rect x="86" y="70" width="22" height="18" rx="6" transform="rotate(27 97 79)" {...soft} />
+          <rect x="86" y="70" width="22" height="18" rx="6" transform="rotate(27 97 79)" {...ink} />
+          <rect x="118" y="86" width="22" height="18" rx="6" transform="rotate(27 129 95)" {...ink} />
+          <rect x="150" y="102" width="22" height="18" rx="6" transform="rotate(27 161 111)" {...ink} />
+          <path d="M200 70 l52 0 l-26 80 Z" {...soft} />
+          <path d="M200 70 l52 0 l-26 80 Z" {...ink} />
+          <path d="M200 70 q26 -12 52 0" {...ink} />
+          <circle cx="220" cy="88" r="5" fill={GOLD} opacity="0.7" stroke="none" />
+          <circle cx="234" cy="104" r="4" fill={GOLD} opacity="0.7" stroke="none" />
+          <circle cx="224" cy="118" r="4" fill={GOLD} opacity="0.7" stroke="none" />
         </>
       )}
 
