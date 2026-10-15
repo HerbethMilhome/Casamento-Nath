@@ -82,7 +82,11 @@ export interface Guest {
   notes?: string;
 }
 
-export type GiftCategory = 'Casa' | 'Lua de mel' | 'Experiências' | 'Cozinha' | 'Viagem' | 'Outros';
+export type GiftCategory =
+  | 'Eletrodomésticos'
+  | 'Cama, mesa e banho'
+  | 'Cozinha'
+  | 'Organização e utilidades';
 
 export type GiftType = 'symbolic' | 'external';
 
@@ -90,22 +94,39 @@ export type GuestGroup = string;
 
 /** Line illustration shown when a gift has no photo. */
 export type GiftArtMotif =
-  | 'panela'
-  | 'airfryer'
+  // Eletrodomésticos
+  | 'microondas'
+  | 'arcondicionado'
+  | 'liquidificador'
   | 'cafeteira'
-  | 'jantar'
-  | 'sofa'
+  | 'aspirador'
+  | 'ferro'
+  | 'sanduicheira'
+  // Cama, mesa e banho
   | 'cama'
-  | 'lavadora'
-  | 'vassoura'
-  | 'churrasqueira'
-  | 'chuveiro'
-  | 'ferramentas'
-  | 'racao'
-  | 'futebol'
-  | 'bebe'
-  | 'viagem'
-  | 'planta';
+  | 'toalhas'
+  | 'edredom'
+  | 'travesseiros'
+  | 'jogoamericano'
+  | 'manta'
+  // Cozinha
+  | 'jantar'
+  | 'copos'
+  | 'potes'
+  | 'refratarios'
+  | 'escorredor'
+  | 'xicaras'
+  // Organização e utilidades
+  | 'cesto'
+  | 'varal'
+  | 'banheiro'
+  | 'lixeira'
+  | 'cabides'
+  | 'passadeira'
+  | 'ventilador'
+  | 'gavetas'
+  // Contribuição livre
+  | 'coracao';
 
 export interface Gift {
   id: string;
