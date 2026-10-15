@@ -83,11 +83,8 @@ export interface Guest {
 }
 
 export type GiftCategory =
-  | 'Especiais dos noivos'
-  | 'Eletrodomésticos'
-  | 'Cama, mesa e banho'
-  | 'Cozinha'
-  | 'Organização e utilidades';
+  | 'Presentes especiais do nosso universo'
+  | 'Nossa casa, nossas regras';
 
 export type GiftType = 'symbolic' | 'external';
 
@@ -95,38 +92,7 @@ export type GuestGroup = string;
 
 /** Line illustration shown when a gift has no photo. */
 export type GiftArtMotif =
-  // Eletrodomésticos
-  | 'microondas'
-  | 'arcondicionado'
-  | 'liquidificador'
-  | 'cafeteira'
-  | 'aspirador'
-  | 'ferro'
-  | 'sanduicheira'
-  // Cama, mesa e banho
-  | 'cama'
-  | 'toalhas'
-  | 'edredom'
-  | 'travesseiros'
-  | 'jogoamericano'
-  | 'manta'
-  // Cozinha
-  | 'jantar'
-  | 'copos'
-  | 'potes'
-  | 'refratarios'
-  | 'escorredor'
-  | 'xicaras'
-  // Organização e utilidades
-  | 'cesto'
-  | 'varal'
-  | 'banheiro'
-  | 'lixeira'
-  | 'cabides'
-  | 'passadeira'
-  | 'ventilador'
-  | 'gavetas'
-  // Especiais dos noivos
+  // Presentes especiais do nosso universo
   | 'racao'
   | 'vaquejada'
   | 'sela'
@@ -134,6 +100,41 @@ export type GiftArtMotif =
   | 'montanhas'
   | 'bebe'
   | 'rodizio'
+  // Nossa casa, nossas regras
+  | 'panela'
+  | 'jantar'
+  | 'cafeteira'
+  | 'airfryer'
+  | 'aspirador'
+  | 'potes'
+  | 'cabides'
+  | 'toalhas'
+  | 'cama'
+  | 'liquidificador'
+  | 'limpeza'
+  | 'utensilios'
+  | 'cesto'
+  | 'tacas'
+  | 'despensa'
+  | 'arcondicionado'
+  | 'microondas'
+  | 'ventilador'
+  | 'edredom'
+  | 'churrasqueira'
+  | 'batedeira'
+  | 'faqueiro'
+  | 'malas'
+  | 'robo'
+  | 'ferramentas'
+  | 'refratarios'
+  | 'copos'
+  | 'panelapressao'
+  | 'ferro'
+  | 'varal'
+  | 'sanduicheira'
+  | 'lixeira'
+  | 'travesseiros'
+  | 'sapateira'
   // Contribuição livre
   | 'coracao';
 

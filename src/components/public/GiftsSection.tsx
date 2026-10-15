@@ -8,12 +8,15 @@ import { buildPixPayload } from '../../utils/pix';
 import { enviarRecado, sheetsConfigurado } from '../../services/sheetsApi';
 
 const CATEGORIAS: GiftCategory[] = [
-  'Especiais dos noivos',
-  'Eletrodomésticos',
-  'Cama, mesa e banho',
-  'Cozinha',
-  'Organização e utilidades',
+  'Presentes especiais do nosso universo',
+  'Nossa casa, nossas regras',
 ];
+
+/** Eyebrow shown above each category heading, in the couple's order. */
+const ROTULO_CATEGORIA: Record<GiftCategory, string> = {
+  'Presentes especiais do nosso universo': 'Categoria A',
+  'Nossa casa, nossas regras': 'Categoria B',
+};
 
 type Faixa = 'todas' | 'ate200' | '200a400' | 'acima400';
 
@@ -23,9 +26,6 @@ const FAIXAS: { id: Faixa; rotulo: string; cabe: (preco: number) => boolean }[] 
   { id: '200a400', rotulo: 'R$ 201 a R$ 400', cabe: (p) => p > 200 && p <= 400 },
   { id: 'acima400', rotulo: 'Acima de R$ 400', cabe: (p) => p > 400 },
 ];
-
-/** The couple's own gifts open the list; the rest follow by price. */
-const ESPECIAL: GiftCategory = 'Especiais dos noivos';
 
 const reais = (valor: number): string =>
   valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -82,13 +82,14 @@ export const GiftsSection: React.FC = () => {
       .filter((g) => categoria === 'Todas' || g.category === categoria)
       .filter((g) => faixaAtual.cabe(g.price))
       .filter((g) => !termo || normalizar(g.title).includes(termo))
-      .sort(
-        (a, b) =>
-          Number(b.category === ESPECIAL) - Number(a.category === ESPECIAL) ||
-          a.price - b.price ||
-          a.order - b.order,
-      );
+      .sort((a, b) => a.price - b.price || a.order - b.order);
   }, [gifts, categoria, faixa, busca]);
+
+  /** Category A always opens the list, category B follows. */
+  const grupos = CATEGORIAS.map((cat) => ({
+    cat,
+    itens: visiveis.filter((g) => g.category === cat),
+  })).filter((grupo) => grupo.itens.length > 0);
 
   const filtrando = categoria !== 'Todas' || faixa !== 'todas' || busca.trim() !== '';
 
@@ -314,15 +315,27 @@ export const GiftsSection: React.FC = () => {
           </div>
 
           <p className="text-center text-xs text-[#7C7D6C]" aria-live="polite">
-            {visiveis.length === 1 ? '1 presente' : `${visiveis.length} presentes`} · os especiais dos noivos primeiro,
-            depois do menor para o maior valor · valores sugeridos, sem nenhuma obrigação
+            {visiveis.length === 1 ? '1 presente' : `${visiveis.length} presentes`} · do menor para o maior valor em
+            cada categoria · valores sugeridos, sem nenhuma obrigação
           </p>
         </div>
 
         {/* 4. Catálogo */}
-        {visiveis.length > 0 ? (
+        {grupos.length > 0 ? (
+          <div className="space-y-14">
+          {grupos.map(({ cat, itens }) => (
+          <section key={cat} aria-labelledby={`cat-${ROTULO_CATEGORIA[cat].slice(-1)}`}>
+            <div className="text-center mb-6">
+              <span className="block text-[10px] tracking-[0.25em] uppercase font-semibold" style={{ color: gold }}>
+                {ROTULO_CATEGORIA[cat]}
+              </span>
+              <h3 id={`cat-${ROTULO_CATEGORIA[cat].slice(-1)}`} className="font-serif text-2xl sm:text-3xl text-[#2C3225] mt-1">
+                {cat}
+              </h3>
+              <div className="w-16 divider-gold mx-auto mt-3" />
+            </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 list-none">
-            {visiveis.map((presente) => (
+            {itens.map((presente) => (
               <li key={presente.id}>
                 <article className="glass rounded-3xl p-4 h-full flex flex-col border border-white/60 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
                   <div className="relative aspect-[16/10] rounded-2xl overflow-hidden mb-4 border border-[#E9DDCC]/70">
@@ -331,12 +344,9 @@ export const GiftsSection: React.FC = () => {
                     ) : (
                       <GiftIllustration motif={presente.art} label={presente.title} />
                     )}
-                    <span className="absolute top-2.5 left-2.5 bg-white/85 backdrop-blur-sm px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-wider font-semibold" style={{ color: olive }}>
-                      {presente.category}
-                    </span>
                   </div>
 
-                  <h3 className="font-serif text-lg text-[#2C3225] leading-snug mb-2">{presente.title}</h3>
+                  <h4 className="font-serif text-lg text-[#2C3225] leading-snug mb-2">{presente.title}</h4>
                   {presente.description && (
                     <p className="text-[13px] text-[#55594A] leading-relaxed italic mb-3 line-clamp-4">
                       “{presente.description}”
@@ -365,6 +375,9 @@ export const GiftsSection: React.FC = () => {
               </li>
             ))}
           </ul>
+          </section>
+          ))}
+          </div>
         ) : (
           <div className="text-center py-12">
             <p className="font-cormorant text-xl text-[#55594A]">Nenhum presente encontrado com esses filtros.</p>
