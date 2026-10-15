@@ -28,7 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
     { label: 'O Grande Dia', href: '#o-grande-dia' },
     { label: 'Dress Code', href: '#dress-code' },
     { label: 'Presentes', href: '#presentes' },
-    { label: 'RSVP', href: '#rsvp' },
+    { label: 'Confirmação', href: '#rsvp' },
     { label: 'Informações', href: '#informacoes' },
   ];
 
@@ -71,12 +71,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-7 text-[11px] font-medium tracking-[0.14em] uppercase text-[#3F463A]">
+        <nav className="hidden xl:flex items-center gap-7 text-[11px] font-medium tracking-[0.14em] uppercase text-[#3F463A]">
           {navLinks.map((link) => (
             <button
               key={link.href}
               onClick={() => scrollToSection(link.href)}
-              className="hover:text-[#657153] transition-colors py-1 relative group cursor-pointer"
+              className="hover:text-[#657153] transition-colors py-1 relative group cursor-pointer whitespace-nowrap"
             >
               {link.label}
               <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#657153] transition-all duration-300 group-hover:w-full" />
@@ -85,7 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
         </nav>
 
         {/* Actions (Share, RSVP CTA) */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden xl:flex items-center gap-3">
           <button
             id="nav-share-btn"
             onClick={onOpenShare}
@@ -105,12 +105,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
         </div>
 
         {/* Mobile Hamburger Button */}
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
           <button
             onClick={() => scrollToSection('#rsvp')}
             className="bg-[#657153] text-white text-[10px] uppercase tracking-wider px-3.5 py-1.5 rounded-full"
           >
-            RSVP
+            Confirmar
           </button>
           <button
             id="nav-mobile-toggle"
@@ -125,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenShare }) => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden glass border-b border-[#E9DDCC]/60 px-6 py-6 shadow-xl animate-in fade-in slide-in-from-top duration-300">
+        <div className="xl:hidden glass border-b border-[#E9DDCC]/60 px-6 py-6 shadow-xl animate-in fade-in slide-in-from-top duration-300">
           <div className="flex flex-col space-y-4">
             <div className="text-center pb-3 border-b border-[#E9DDCC]/40 flex flex-col items-center gap-2">
               <MonogramCrest size="sm" variant="minimal" />
